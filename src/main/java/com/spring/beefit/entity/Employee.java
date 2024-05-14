@@ -1,0 +1,71 @@
+package com.spring.beefit.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.util.Date;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name = "Employee")
+public class Employee implements Serializable {
+
+    @jakarta.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private Integer id;
+
+    @Column(name = "Code")
+    private String code;
+
+    @Column(name = "Fullname")
+    private String fullname;
+
+    @Column(name = "Username")
+    private String username;
+
+    @Column(name = "Password")
+    private String password;
+
+    @Column(name = "Image")
+    private String image;
+
+    @Column(name = "Gender")
+    private Boolean gender;
+
+    @Column(name = "Phone")
+    private String phone;
+
+    @Column(name = "Email")
+    private String email;
+
+    @Column(name = "CreateDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+
+    @Column(name = "UpdateDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updateDate;
+
+    @Column(name = "CreateBy")
+    private String createBy;
+
+    @Column(name = "UpdateBy")
+    private String updateBy;
+
+    @Column(name = "Status")
+    private Integer status;
+
+    @ManyToOne
+    @JoinColumn(name = "IdRole")
+    private Role role;
+
+}

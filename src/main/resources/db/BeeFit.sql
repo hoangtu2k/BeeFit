@@ -121,6 +121,8 @@ Create table ProductImage(
 Create table ProductDetail(
 									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,                    
 									     Price MONEY,
+										 Discount INT,
+										 DiscountDate DATETIME,
 									     Description NVARCHAR(255),							 
 									     CreateDate DATETIME,
 									     UpdateDate DATETIME,
