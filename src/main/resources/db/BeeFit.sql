@@ -274,9 +274,11 @@ Create table CartDetail(
 
 -- Thêm dữ liệu vào bảng "role"
 INSERT INTO Role (Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
-VALUES ('Admin',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+VALUES ('Admin',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('Staff',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 
 -- Thêm dữ liệu vào bảng "employee"
 INSERT INTO Employee (Code, Fullname, Username, Password, Image, Gender, Phone, Email, CreateDate, UpdateDate, CreateBy, UpdateBy, status, IdRole)
-VALUES ('NV01', 'John Doe', 'sa', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 1);
+VALUES ('NV01', 'John Doe staff', 'staff', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 2),
+	   ('NV02', 'John Doe admin', 'admin', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 1);
 
