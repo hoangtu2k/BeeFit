@@ -1,5 +1,6 @@
 package com.spring.beefit.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,46 +14,28 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Employee implements Serializable {
+public class ProductImage implements Serializable {
 
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "Id", nullable = false)
     private Integer id;
 
-    @Column(name = "Code")
-    private String code;
+    @Column(name = "Url")
+    private String url;
 
-    @Column(name = "Fullname")
-    private String fullname;
-
-    @Column(name = "Username")
-    private String username;
-
-    @Column(name = "Password")
-    private String password;
-
-    @Column(name = "Image")
-    private String image;
-
-    @Column(name = "Gender")
-    private Boolean gender;
-
-    @Column(name = "Phone")
-    private String phone;
-
-    @Column(name = "Email")
-    private String email;
+    @Column(name = "MainImage")
+    private Boolean mainImage;
 
     @Column(name = "CreateDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    private Date CreateDate;
 
     @Column(name = "UpdateDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updateDate;
+    private Date UpdateDate;
 
     @Column(name = "CreateBy")
     private String createBy;
@@ -64,7 +47,9 @@ public class Employee implements Serializable {
     private Integer status;
 
     @ManyToOne
-    @JoinColumn(name = "IdRole")
-    private Role role;
+    @JoinColumn(name = "IdProduct")
+    @JsonBackReference
+    private Product product;
+
 
 }

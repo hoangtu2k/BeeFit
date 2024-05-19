@@ -3,6 +3,146 @@ go
 use BeeFit
 go
 
+-- Create Category
+Create table Category(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create Brand
+Create table Brand(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create Design
+Create table Design(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create NeckType
+Create table NeckType(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create HandType
+Create table HandType(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create Product
+Create table Product(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Code VARCHAR(30),
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create ProductDetail
+Create table ProductDetail(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,										 
+										 Price MONEY,
+										 Discount INT,
+										 DiscountDate DATETIME,
+									     Description NVARCHAR(255),							 
+									     CreateDate DATETIME,
+									     UpdateDate DATETIME,
+									     CreateBy VARCHAR(30),
+									     UpdateBy VARCHAR(30),    
+									     Status INT DEFAULT 0,
+										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),		
+									     IdBrand INT FOREIGN KEY REFERENCES Brand(Id),								
+									     IdCategory INT FOREIGN KEY REFERENCES Category(Id),
+										 IdNeckType INT FOREIGN KEY REFERENCES NeckType(Id),
+										 IdHandType INT FOREIGN KEY REFERENCES HandType(Id),
+									     IdDesign INT FOREIGN KEY REFERENCES Design(Id)
+)
+-- Create ProductImage
+Create table ProductImage(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Url NVARCHAR(255),
+										 MainImage BIT,
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT,
+										 IdProduct INT FOREIGN KEY REFERENCES Product(Id)
+)
+-- Create Material
+Create table Material(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create ProductDetail_Material
+Create table ProductDetail_Material(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
+										 IdMaterial INT FOREIGN KEY REFERENCES Material(Id)
+)
+-- Create Size
+Create table Size(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create Color
+Create table Color(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Name NVARCHAR(100),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT
+)
+-- Create ProductDetail_Color_Size
+Create table ProductDetail_Color_Size(
+                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Quantity INT,
+                                         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
+                                         IdColor INT FOREIGN KEY REFERENCES Color(Id),
+                                         IdSize INT FOREIGN KEY REFERENCES Size(Id),                                 
+)
+
+-----------------------------------------    product     --------------------------------------------
+
+-- Create Role
 create table Role (
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Name NVARCHAR(50),
@@ -12,6 +152,7 @@ create table Role (
 										 UpdateBy VARCHAR(30),
 										 Status INT
 )
+-- Create Employee
 Create table Employee(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30) UNIQUE,
@@ -29,6 +170,7 @@ Create table Employee(
 										 Status INT,
 										 IdRole INT FOREIGN KEY REFERENCES Role(Id)
 )
+-- Create Customer
 Create table Customer(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30) UNIQUE,
@@ -45,139 +187,9 @@ Create table Customer(
 										 UpdateBy VARCHAR(30),
 										 Status INT,
 )
-Create table Product(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Code VARCHAR(30),
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-							 			 CreateBy VARCHAR(30),
-							 			 UpdateBy VARCHAR(30),
-										 Status INT
 
-)
-Create table Category(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
-Create table Brand(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
-Create table Design(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
-Create table SleeveType(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
-Create table CollarType(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
-Create table ProductImage(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Url NVARCHAR(255),
-										 MainImage BIT,
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT,
-										 IdProduct INT FOREIGN KEY REFERENCES Product(Id)
-)
-Create table ProductDetail(
-									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,                    
-									     Price MONEY,
-										 Discount INT,
-										 DiscountDate DATETIME,
-									     Description NVARCHAR(255),							 
-									     CreateDate DATETIME,
-									     UpdateDate DATETIME,
-									     CreateBy VARCHAR(30),
-									     UpdateBy VARCHAR(30),    
-									     Status INT,
-									     IdProduct INT FOREIGN KEY REFERENCES Product(Id),
-									     IdBrand INT FOREIGN KEY REFERENCES Brand(Id),								
-									     IdCategory INT FOREIGN KEY REFERENCES Category(Id),
-										 IdSleeve INT FOREIGN KEY REFERENCES SleeveType(Id),
-										 IdCollar INT FOREIGN KEY REFERENCES CollarType(Id),
-									     IdDesign INT FOREIGN KEY REFERENCES Design(Id)
-)
-Create table Material(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
-Create table ProductDetail_Material(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
-										 IdMaterial INT FOREIGN KEY REFERENCES Material(Id)
-)
-Create table Size(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
-Create table Color(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Name NVARCHAR(100),
-										 Description NVARCHAR(255),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
-Create table ProductDetail_Color_Size(
-                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Quantity INT,
-                                         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
-                                         IdColor INT FOREIGN KEY REFERENCES Color(Id),
-                                         IdSize INT FOREIGN KEY REFERENCES Size(Id),                                 
-)
+
+
 Create table Voucher(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30),
@@ -271,6 +283,85 @@ Create table CartDetail(
 								         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id)
 )
 
+
+
+
+------------------------------------- Inser into product start ------------------------------------------
+-- Thêm dữ liệu vào bảng "Category"
+INSERT INTO Category(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES (N'Tay ngắn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Tay dài',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "Design"
+INSERT INTO Design(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES (N'Họa tiết kẻ sọc ngang trẻ trung',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Thiết kế logo bóng chày in nổi bật ở ngực trái',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "Brand"
+INSERT INTO Brand(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES ('MLB',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('H&M',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "NeckType"
+INSERT INTO NeckType(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES (N'Cổ tròn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Cổ chữ V',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "HandType"
+INSERT INTO HandType(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES (N'Tay ngắn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Tay dài',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "Material"
+INSERT INTO Material(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES ('Cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('TBC',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('Polyester',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "Product"
+INSERT INTO Product(Code, Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES ('SP01', N'Áo thun unisex cổ tròn tay ngắn Basic Big Logo',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),	 
+	   ('SP02', N'Áo thun unisex cổ tròn tay ngắn Basic Small Logo',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+
+-- Thêm dữ liệu vào bảng "Color"
+INSERT INTO Color(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES (N'Blue',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Green',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Navy',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Black',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Cream',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "Size"
+INSERT INTO Size(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
+VALUES ('S',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('M',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('L',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('XL',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "Product"
+INSERT INTO ProductDetail( Price, Discount, DiscountDate, Description,CreateDate,UpdateDate,CreateBy,UpdateBy,IdProduct,IdBrand,IdCategory,IdDesign,IdHandType,IdNeckType)
+VALUES ( 200000 , 0, GETDATE(), N'Họa tiết in cùng phông chữ được cách điệu đáng yêu' , GETDATE() , GETDATE() , 'Admin' , 'Admin' ,1, 1 , 1 , 1 , 1 ,1),
+	   ( 100000 , 0, GETDATE(), N'Họa tiết in cùng phông chữ được cách điệu đáng yêu' , GETDATE() , GETDATE() , 'Admin' , 'Admin' ,1, 1 , 1 , 1 , 1 ,1);
+
+-- Thêm dữ liệu vào bảng "ProductDetail_Material"
+INSERT INTO ProductDetail_Material(IdProductDetail , IdMaterial)
+VALUES (1 , 1),
+	   (1 , 2);
+
+-- Thêm dữ liệu vào bảng "ProductDetail_Color_Size"
+INSERT INTO ProductDetail_Color_Size(IdProductDetail, IdColor , IdSize , Quantity)
+VALUES (1, 1, 1 , 100),
+	   (1, 1, 2 , 100),
+	   (1, 1, 3 , 100),
+	   (1, 1, 4 , 100);
+
+-- Thêm dữ liệu vào bảng "ProductImage"
+INSERT INTO ProductImage(Url, MainImage , CreateDate,UpdateDate,CreateBy,UpdateBy,Status,IdProduct)
+VALUES (Null, Null, GETDATE(),GETDATE(),'Admin','Admin',0,1),
+       (Null, Null, GETDATE(),GETDATE(),'Admin','Admin',0,2);
+
+-------------------------------------- Inser into product end --------------------------------------------
 
 -- Thêm dữ liệu vào bảng "role"
 INSERT INTO Role (Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)

@@ -14,10 +14,10 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Role extends AttributeProductEntity implements Serializable {
+public class Material extends AttributeProductEntity implements Serializable {
 
     @JsonIgnore
-    @OneToMany(mappedBy = "role")
-    private Set<Employee> employees = new HashSet<Employee>();
+    @OneToMany(mappedBy = "material")
+    private Set<ProductdetailMaterial> productdetailMaterials = new HashSet<ProductdetailMaterial>();
 
 }
