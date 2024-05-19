@@ -30,12 +30,12 @@ public class ProductImage implements Serializable {
     @Column(name = "CreateDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date CreateDate;
+    private Date createDate;
 
     @Column(name = "UpdateDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date UpdateDate;
+    private Date updateDate;
 
     @Column(name = "CreateBy")
     private String createBy;

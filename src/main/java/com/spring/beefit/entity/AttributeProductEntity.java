@@ -12,7 +12,7 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class AttributeProductEntity {
 
-    @Id
+    @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id", nullable = false)
     private Integer id;
@@ -23,12 +23,12 @@ public abstract class AttributeProductEntity {
     @Column(name = "CreateDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date CreateDate;
+    private Date createDate;
 
     @Column(name = "UpdateDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date UpdateDate;
+    private Date updateDate;
 
     @Column(name = "CreateBy")
     private String createBy;

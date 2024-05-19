@@ -19,12 +19,13 @@ public class Product extends AttributeProductEntity implements Serializable {
     @Column(name = "Code")
     private String code;
 
+    @OneToMany(mappedBy = "product")
+    private Set<ProductImage> productImages = new HashSet<ProductImage>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private Set<ProductDetail> productDetails = new HashSet<ProductDetail>();
 
-    @OneToMany(mappedBy = "product")
-    private Set<ProductImage> productImages = new HashSet<ProductImage>();
 
 
 }
