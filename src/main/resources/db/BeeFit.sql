@@ -341,8 +341,8 @@ VALUES ('S',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 
 -- Thêm dữ liệu vào bảng "Product"
 INSERT INTO ProductDetail( Price, Discount, DiscountDate, Description,CreateDate,UpdateDate,CreateBy,UpdateBy,IdProduct,IdBrand,IdCategory,IdDesign,IdHandType,IdNeckType)
-VALUES ( 200000 , 0, GETDATE(), N'Họa tiết in cùng phông chữ được cách điệu đáng yêu' , GETDATE() , GETDATE() , 'Admin' , 'Admin' ,1, 1 , 1 , 1 , 1 ,1),
-	   ( 100000 , 0, GETDATE(), N'Họa tiết in cùng phông chữ được cách điệu đáng yêu' , GETDATE() , GETDATE() , 'Admin' , 'Admin' ,1, 1 , 1 , 1 , 1 ,1);
+VALUES ( 200000 , 0, GETDATE(), N'Họa tiết ' , GETDATE() , GETDATE() , 'Admin' , 'Admin' ,1, 1 , 1 , 1 , 1 ,1),
+	   ( 100000 , 0, GETDATE(), N'Họa tiết ' , GETDATE() , GETDATE() , 'Admin' , 'Admin' ,2, 1 , 1 , 1 , 1 ,1);
 
 -- Thêm dữ liệu vào bảng "ProductDetail_Material"
 INSERT INTO ProductDetail_Material(IdProductDetail , IdMaterial)

@@ -1,5 +1,6 @@
 package com.spring.beefit.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class ProductdetailColorSize implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "IdProductDetail")
+    @JsonBackReference
     private ProductDetail productDetail;
 
     @ManyToOne
