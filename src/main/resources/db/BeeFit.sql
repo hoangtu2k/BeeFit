@@ -289,8 +289,8 @@ Create table CartDetail(
 ------------------------------------- Inser into product start ------------------------------------------
 -- Thêm dữ liệu vào bảng "Category"
 INSERT INTO Category(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
-VALUES (N'Tay ngắn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Tay dài',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+VALUES (N'Áo thun tay ngắn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Áo thun tay dài',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 
 -- Thêm dữ liệu vào bảng "Design"
 INSERT INTO Design(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
@@ -318,19 +318,19 @@ VALUES ('Cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('TBC',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('Polyester',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 
--- Thêm dữ liệu vào bảng "Product"
-INSERT INTO Product(Code, Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
-VALUES ('SP01', N'Áo thun unisex cổ tròn tay ngắn Basic Big Logo',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),	 
-	   ('SP02', N'Áo thun unisex cổ tròn tay ngắn Basic Small Logo',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
-
-
 -- Thêm dữ liệu vào bảng "Color"
 INSERT INTO Color(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
-VALUES (N'Blue',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Green',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Navy',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Black',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Cream',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+VALUES (N'Den',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Trắng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Đỏ',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Xám',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),	   
+	   (N'Hồng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Vàng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Tím',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Nâu',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Xanh dương',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Xanh lá',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   (N'Cam',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 
 -- Thêm dữ liệu vào bảng "Size"
 INSERT INTO Size(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
@@ -338,28 +338,6 @@ VALUES ('S',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('M',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('L',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('XL',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
-
--- Thêm dữ liệu vào bảng "Product"
-INSERT INTO ProductDetail( Price, Discount, DiscountDate, Description,CreateDate,UpdateDate,CreateBy,UpdateBy,IdProduct,IdBrand,IdCategory,IdDesign,IdHandType,IdNeckType)
-VALUES ( 200000 , 0, GETDATE(), N'Họa tiết ' , GETDATE() , GETDATE() , 'Admin' , 'Admin' ,1, 1 , 1 , 1 , 1 ,1),
-	   ( 100000 , 0, GETDATE(), N'Họa tiết ' , GETDATE() , GETDATE() , 'Admin' , 'Admin' ,2, 1 , 1 , 1 , 1 ,1);
-
--- Thêm dữ liệu vào bảng "ProductDetail_Material"
-INSERT INTO ProductDetail_Material(IdProductDetail , IdMaterial)
-VALUES (1 , 1),
-	   (1 , 2);
-
--- Thêm dữ liệu vào bảng "ProductDetail_Color_Size"
-INSERT INTO ProductDetail_Color_Size(IdProductDetail, IdColor , IdSize , Quantity)
-VALUES (1, 1, 1 , 100),
-	   (1, 1, 2 , 100),
-	   (1, 1, 3 , 100),
-	   (1, 1, 4 , 100);
-
--- Thêm dữ liệu vào bảng "ProductImage"
-INSERT INTO ProductImage(Url, MainImage , CreateDate,UpdateDate,CreateBy,UpdateBy,Status,IdProduct)
-VALUES (Null, Null, GETDATE(),GETDATE(),'Admin','Admin',0,1),
-       (Null, Null, GETDATE(),GETDATE(),'Admin','Admin',0,2);
 
 -------------------------------------- Inser into product end --------------------------------------------
 
