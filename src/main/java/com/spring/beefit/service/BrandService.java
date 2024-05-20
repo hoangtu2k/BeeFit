@@ -11,14 +11,14 @@ import java.util.List;
 @Service
 public class BrandService {
 
-    private final BrandRepository brandRepository;
+    private final BrandRepository repository;
 
-    public BrandService(BrandRepository brandRepository) {
-        this.brandRepository = brandRepository;
+    public BrandService(BrandRepository repository) {
+        this.repository = repository;
     }
 
     public List<Brand> getAllBrands() {
-        return brandRepository.getAll();
+        return repository.getAll();
     }
 
     public Brand add(BrandReq request){
@@ -26,15 +26,14 @@ public class BrandService {
         brand.setName(request.getName());
         brand.setCreateDate(new Date());
         brand.setStatus(0);
-        return brandRepository.save(brand);
+        return repository.save(brand);
     }
 
     public Brand update(Integer id,BrandReq request){
-        Brand brand = brandRepository.getById(id);
+        Brand brand = repository.getById(id);
         brand.setName(request.getName());
         brand.setUpdateDate(new Date());
-        return brandRepository.save(brand);
+        return repository.save(brand);
     }
-
 
 }
