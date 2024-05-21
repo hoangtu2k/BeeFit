@@ -13,7 +13,6 @@ public class ProductDetailReq {
     private String Code;
     private String Name;
     private BigDecimal Price;
-    private Integer Discount;
     private String Description;
     private String CreateBy;
     private String UpdateBy;
@@ -23,7 +22,6 @@ public class ProductDetailReq {
     private Integer IdDesign;
     private Integer IdHandType;
     private Integer IdNeckType;
-    private Date DiscountDate;
     private String Url;
     private Boolean MainImage;
     private Integer IdProductDetail;

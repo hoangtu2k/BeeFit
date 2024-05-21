@@ -84,7 +84,7 @@ Create table ProductDetail(
 -- Create Promotion
 Create table Promotion (
                                          Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 PromotionId VARCHAR(30),
+										 Code VARCHAR(30),
 										 Name NVARCHAR(100),
 									 	 DiscountType BIT,
 									 	 IsDiscount BIT,
@@ -95,10 +95,10 @@ Create table Promotion (
 										 CreateDate DATETIME,
 										 Status INT																	 
 )
--- Create Product_Promotion
+-- Create ProductPromotion
 Create table Product_Promotion(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 IdVoucher INT FOREIGN KEY REFERENCES Promotion(Id),
+										 IdPromotion INT FOREIGN KEY REFERENCES Promotion(Id),
 										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),
 )
 -- Create ProductImage
