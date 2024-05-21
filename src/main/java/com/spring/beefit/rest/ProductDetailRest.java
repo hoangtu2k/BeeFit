@@ -2,6 +2,7 @@ package com.spring.beefit.rest;
 
 import com.spring.beefit.service.ProductDetailService;
 import com.spring.beefit.viewmodel.request.ProductDetailReq;
+import com.spring.beefit.viewmodel.request.ValidateForm;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,6 +63,32 @@ public class ProductDetailRest {
         return ResponseEntity.ok(service.add(productDetail));
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Integer id,@RequestBody ProductDetailReq request){
+        return ResponseEntity.ok(service.update(id,request));
+    }
+
+    @PostMapping("/validateupdate")
+    public ResponseEntity<?> valid(@Valid @RequestBody ValidateForm validateForm, BindingResult result){
+        if (result.hasErrors()){
+            List<ObjectError> list = result.getAllErrors();
+            return ResponseEntity.badRequest().body(list);
+        }
+        return ResponseEntity.ok(validateForm);
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<?> validate(@Valid @RequestBody ValidateForm validateForm, BindingResult result){
+        if (result.hasErrors()){
+            List<ObjectError> list = result.getAllErrors();
+            return ResponseEntity.badRequest().body(list);
+        }
+        if (service.getByCode(validateForm.getCode()) != null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(validateForm);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id){
         return ResponseEntity.ok(service.delete(id));
@@ -71,5 +98,6 @@ public class ProductDetailRest {
     public ResponseEntity<?> khoiphucDelete(@PathVariable("id") Integer id){
         return ResponseEntity.ok(service.khoiphucDelete(id));
     }
+
 
 }

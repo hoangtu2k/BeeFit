@@ -20,5 +20,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
     @Query(value = "Select e from ProductDetail e where e.id = :id")
     ProductDetail getById(@Param("id") Integer id);
 
+    @Query("Select e from ProductDetail  e where e.product.code = :code")
+    ProductDetail getByCode(@Param("code") String code);
 
 }

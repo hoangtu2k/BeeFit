@@ -139,36 +139,6 @@ Create table ProductDetail_Color_Size(
                                          IdColor INT FOREIGN KEY REFERENCES Color(Id),
                                          IdSize INT FOREIGN KEY REFERENCES Size(Id),                                 
 )
-create table OperationHistory(
-                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-                                         CreateDate DATETIME,
-                                         CreateBy VARCHAR(30),
-                                         IdProductDetail INT,
-                                         Status INT
-)
-Create table ProductDetailHistory(
-                                        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-                                        ImageMain VARCHAR(max),
-										ImageList VARCHAR(max),
-										UpdateDate DATETIME,
-										UpdateBy VARCHAR(30),
-										Name NVARCHAR(100),
-										Price MONEY,										
-										Description NVARCHAR(255),
-										IdCategory INT ,
-										IdBrand INT,									
-										IdDesign INT ,
-										IdMaterial VARCHAR(max),
-										IdVoucher VARCHAR(max),
-										IdColor_Size_Quantity VARCHAR(max),
-										Discount INT,
-										DiscountDate DATETIME,
-										SupplierName NVARCHAR(100),
-										SupplierPhone VARCHAR(15),
-										SupplierAddress NVARCHAR(255),
-										SupplierAgree NVARCHAR(255),
-										IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id)
-)
 -----------------------------------------    product     --------------------------------------------
 
 -- Create Role

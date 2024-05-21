@@ -3,7 +3,6 @@ package com.spring.beefit.service;
 import com.spring.beefit.entity.*;
 import com.spring.beefit.repository.*;
 import com.spring.beefit.viewmodel.request.ProductDetailReq;
-import com.spring.beefit.viewmodel.request.ProductReq;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -44,7 +43,7 @@ public class ProductDetailService {
     @Autowired
     private ProductDetailColorSizeRepository productDetailColorSizeRepository;
 
-
+    // load data thuoc tinh san pham
     public List<Design> getAllDesigns() {
         return designRepository.getAll();
     }
@@ -95,6 +94,21 @@ public class ProductDetailService {
         return productDetailRepository.save(productDetail);
     }
 
+    public ProductDetail update(Integer id,ProductDetailReq request){
+        ProductDetail productDetail = productDetailRepository.getById(id);
+        productDetail.setPrice(request.getPrice());
+        productDetail.setDiscount(request.getDiscount());
+        productDetail.setDescription(request.getDescription());
+        productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
+        productDetail.setCategory(Category.builder().id(request.getIdCategory()).build());
+        productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
+        productDetail.setHandType(HandType.builder().id(request.getIdHandType()).build());
+        productDetail.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
+        productDetail.setDiscountDate(request.getDiscountDate());
+        productDetail.setUpdateDate(new Date());
+        return productDetailRepository.save(productDetail);
+    }
+
     public ProductDetail delete(Integer IdProductDetail){
         ProductDetail p = productDetailRepository.getById(IdProductDetail);
         p.setStatus(1);
@@ -107,6 +121,10 @@ public class ProductDetailService {
         return productDetailRepository.save(p);
     }
 
+    public ProductDetail getByCode(String code){
+        return productDetailRepository.getByCode(code);
+    }
+
     public String genCode() {
         // Tạo đối tượng Random
         long timestamp = Instant.now().getEpochSecond();
@@ -114,7 +132,7 @@ public class ProductDetailService {
         return code;
     }
 
-    public Product add(ProductReq request){
+    public Product addProduct(ProductDetailReq request){
         Product product = new Product();
         product.setCode(genCode());
         product.setName(request.getName());
@@ -123,7 +141,7 @@ public class ProductDetailService {
         return productRepository.save(product);
     }
 
-    public Product update(Integer id, ProductReq request){
+    public Product updateProduct(Integer id, ProductDetailReq request){
         Product product = productRepository.getById(id);
         product.setName(request.getName());
         product.setUpdateDate(new Date());
@@ -204,5 +222,28 @@ public class ProductDetailService {
             inputStream.close();
         }
     }
+
+    public ProductImage addImage(ProductDetailReq image){
+        ProductImage productImage = new ProductImage();
+        productImage.setUrl(image.getUrl());
+        productImage.setMainImage(image.getMainImage());
+        productImage.setProduct(Product.builder().id(image.getIdProduct()).build());
+        productImage.setCreateDate(new Date());
+        productImage.setStatus(0);
+        return productImageRepository.save(productImage);
+    }
+    public void deleteImg(Integer IdProduct){
+        List<ProductImage> list = productImageRepository.getAllByIdSP(IdProduct);
+        for(ProductImage p : list){
+            productImageRepository.delete(p);
+        }
+    }
+    public void delete1(Integer IdProduct){
+        List<ProductImage> list = productImageRepository.getAllByIdSP1(IdProduct);
+        for(ProductImage p : list){
+            productImageRepository.delete(p);
+        }
+    }
+
 
 }
