@@ -68,8 +68,6 @@ Create table Product(
 Create table ProductDetail(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,										 
 										 Price MONEY,
-										 Discount INT,
-										 DiscountDate DATETIME,
 									     Description NVARCHAR(255),							 
 									     CreateDate DATETIME,
 									     UpdateDate DATETIME,
@@ -81,7 +79,27 @@ Create table ProductDetail(
 									     IdCategory INT FOREIGN KEY REFERENCES Category(Id),
 										 IdNeckType INT FOREIGN KEY REFERENCES NeckType(Id),
 										 IdHandType INT FOREIGN KEY REFERENCES HandType(Id),
-									     IdDesign INT FOREIGN KEY REFERENCES Design(Id)
+									     IdDesign INT FOREIGN KEY REFERENCES Design(Id),
+)
+-- Create Promotion
+Create table Promotion (
+                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 PromotionId VARCHAR(30),
+										 Name NVARCHAR(100),
+									 	 DiscountType BIT,
+									 	 IsDiscount BIT,
+										 Discount INT ,
+										 Cash MONEY,
+										 StartDate DATETIME,
+										 EndDate DATETIME,
+										 CreateDate DATETIME,
+										 Status INT																	 
+)
+-- Create Product_Promotion
+Create table Product_Promotion(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 IdVoucher INT FOREIGN KEY REFERENCES Promotion(Id),
+										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),
 )
 -- Create ProductImage
 Create table ProductImage(
@@ -139,6 +157,7 @@ Create table ProductDetail_Color_Size(
                                          IdColor INT FOREIGN KEY REFERENCES Color(Id),
                                          IdSize INT FOREIGN KEY REFERENCES Size(Id),                                 
 )
+
 -----------------------------------------    product     --------------------------------------------
 
 -- Create Role
@@ -187,8 +206,6 @@ Create table Customer(
 										 Status INT,
 )
 
-
-
 Create table Voucher(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30),
@@ -205,11 +222,7 @@ Create table Voucher(
 										 UpdateBy VARCHAR(30),
 										 Status INT
 )
-Create table Product_Voucher(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 IdVoucher INT FOREIGN KEY REFERENCES Voucher(Id),
-										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),
-)
+
 Create table Address(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Fullname NVARCHAR(100),
@@ -218,9 +231,6 @@ Create table Address(
 									 	 CityName NVARCHAR(100),
 										 DistrictName NVARCHAR(100),
 										 WardName NVARCHAR(100),
-										 CityId INT,
-										 DistrictId INT ,
-										 WardId INT,
 										 CreateDate DATETIME,
 										 UpdateDate DATETIME,
 										 CreateBy VARCHAR(30),
