@@ -19,17 +19,20 @@ import java.util.Date;
 @Service
 public class ProductDetailExelService {
 
+    private final ProductDetailRepository productDetailRepository;
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
     private final ProductDetailMaterialRepository productDetailMaterialRepository;
     private final ProductDetailColorSizeRepository productDetailColorSizeRepository;
 
     public ProductDetailExelService(
+            ProductDetailRepository productDetailRepository,
             ProductRepository productRepository,
             ProductImageRepository productImageRepository,
             ProductDetailMaterialRepository productDetailMaterialRepository,
             ProductDetailColorSizeRepository productDetailColorSizeRepository
     ) {
+        this.productDetailRepository = productDetailRepository;
         this.productRepository = productRepository;
         this.productImageRepository = productImageRepository;
         this.productDetailMaterialRepository = productDetailMaterialRepository;
@@ -69,14 +72,6 @@ public class ProductDetailExelService {
                    Product product = new Product();
                    product.setCode(code);
                    product.setName(name);
-                   product.setPrice(BigDecimal.valueOf(price));
-                   product.setDescription(description);
-                   product.setDiscount(dis);
-                   product.setCategory(Category.builder().id(idcate).build());
-                   product.setBrand(Brand.builder().id(idbrand).build());
-                   product.setDesign(Design.builder().id(iddesign).build());
-                   product.setHandType(HandType.builder().id(idhandtype).build());
-                   product.setNeckType(NeckType.builder().id(idnecktype).build());
                    product.setStatus(0);
                    product.setCreateDate(new Date());
                    productRepository.save(product);
@@ -86,17 +81,29 @@ public class ProductDetailExelService {
                    productImage.setUrl(url);
                    productImage.setProduct(Product.builder().id(product.getId()).build());
                    productImageRepository.save(productImage);
-
+                   ProductDetail productDetail = new ProductDetail();
+                   productDetail.setPrice(BigDecimal.valueOf(price));
+                   productDetail.setDescription(description);
+                   productDetail.setDiscount(dis);
+                   productDetail.setProduct(Product.builder().id(product.getId()).build());
+                   productDetail.setCategory(Category.builder().id(idcate).build());
+                   productDetail.setBrand(Brand.builder().id(idbrand).build());
+                   productDetail.setDesign(Design.builder().id(iddesign).build());
+                   productDetail.setHandType(HandType.builder().id(idhandtype).build());
+                   productDetail.setNeckType(NeckType.builder().id(idnecktype).build());
+                   productDetail.setStatus(0);
+                   productDetail.setCreateDate(new Date());
+                   productDetailRepository.save(productDetail);
                    for (String material:mate) {
                        ProductdetailMaterial productdetailMaterial = new ProductdetailMaterial();
-                       productdetailMaterial.setProduct(Product.builder().id(product.getId()).build());
+                       productdetailMaterial.setProductDetail(ProductDetail.builder().id(productDetail.getId()).build());
                        productdetailMaterial.setMaterial(Material.builder().id(Integer.parseInt(material)).build());
                        productDetailMaterialRepository.save(productdetailMaterial);
                    }
                    for (String color_size_quantity :color_size) {
                        String [] mang = color_size_quantity.split("-");
                        ProductdetailColorSize productdetailColorSize = new ProductdetailColorSize();
-                       productdetailColorSize.setProduct(Product.builder().id(product.getId()).build());
+                       productdetailColorSize.setProductDetail(ProductDetail.builder().id(productDetail.getId()).build());
                        productdetailColorSize.setSize(Size.builder().id(Integer.parseInt(mang[1])).build());
                        productdetailColorSize.setColor(Color.builder().id(Integer.parseInt(mang[0])).build());
                        productdetailColorSize.setQuantity(Integer.parseInt(mang[2]));

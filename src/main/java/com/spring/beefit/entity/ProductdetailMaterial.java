@@ -21,9 +21,9 @@ public class ProductdetailMaterial implements Serializable {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "IdProduct")
+    @JoinColumn(name = "IdProductDetail")
     @JsonBackReference
-    private Product product;
+    private ProductDetail productDetail;
 
     @ManyToOne
     @JoinColumn(name = "IdMaterial")
