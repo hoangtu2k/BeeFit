@@ -281,7 +281,17 @@ Create table CartDetail(
 								         IdCart INT FOREIGN KEY REFERENCES Cart(Id),
 								         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id)
 )
-
+Create table Background(
+									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+									     Type VARCHAR(30),
+									     Url VARCHAR(255),
+									     Content NVARCHAR(255),
+									     CreateDate DATETIME,
+									     UpdateDate DATETIME,
+									     CreateBy VARCHAR(30),
+									     UpdateBy VARCHAR(30),
+									     Status INT
+)
 
 
 
