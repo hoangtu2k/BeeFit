@@ -245,5 +245,11 @@ public class ProductDetailService {
         }
     }
 
+    public List<ProductDetail> getAllbyFilter(
+            Integer IdColor,Integer IdSize,Integer IdMaterial,
+            Integer IdCategory, Integer IdBrand , Integer IdHandType,Integer IdNeckType, Integer IdDesign,Double min ,Double max ,Integer soLuong,Integer soLuong1){
+        return productDetailRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1);
+    }
+
 
 }

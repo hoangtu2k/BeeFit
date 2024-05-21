@@ -99,5 +99,21 @@ public class ProductDetailRest {
         return ResponseEntity.ok(service.khoiphucDelete(id));
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<?> getAllByFilter(
+            @RequestParam(name = "idcategory",required = false) Integer IdCategory,
+            @RequestParam(name = "idmaterial",required = false) Integer IdMaterial,
+            @RequestParam(name = "idcolor",required = false) Integer IdColor,
+            @RequestParam(name = "idsize",required = false) Integer IdSize,
+            @RequestParam(name = "idbrand",required = false) Integer IdBrand,
+            @RequestParam(name = "idhandtype",required = false) Integer IdHandType,
+            @RequestParam(name = "idnecktype",required = false) Integer IdNeckType,
+            @RequestParam(name = "iddesign",required = false) Integer IdDesign,
+            @RequestParam("min") Double min,
+            @RequestParam("max") Double max,
+            @RequestParam(name = "soLuong",required = false) Integer soLuong,
+            @RequestParam(name = "soLuong1",required = false) Integer soLuong1){
+        return ResponseEntity.ok(service.getAllbyFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand,IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1));
+    }
 
 }
