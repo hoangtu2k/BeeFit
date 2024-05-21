@@ -99,6 +99,16 @@ public class ProductDetailRest {
         return ResponseEntity.ok(service.khoiphucDelete(id));
     }
 
+    @GetMapping("/getVoucher")
+    public ResponseEntity<?> getVoucher(){
+        return ResponseEntity.ok(service.getVoucher());
+    }
+    @GetMapping("/getAllVoucher")
+    public ResponseEntity<?> getAllVoucher(){
+        return ResponseEntity.ok(service.getAllVoucher());
+    }
+
+
     @GetMapping("/filter")
     public ResponseEntity<?> getAllByFilter(
             @RequestParam(name = "idcategory",required = false) Integer IdCategory,

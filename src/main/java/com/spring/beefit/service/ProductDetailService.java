@@ -80,7 +80,6 @@ public class ProductDetailService {
     public ProductDetail add(ProductDetailReq request) {
         ProductDetail productDetail = new ProductDetail();
         productDetail.setPrice(request.getPrice());
-        productDetail.setDiscount(request.getDiscount());
         productDetail.setDescription(request.getDescription());
         productDetail.setProduct(Product.builder().id(request.getIdProduct()).build());
         productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
@@ -88,7 +87,6 @@ public class ProductDetailService {
         productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
         productDetail.setHandType(HandType.builder().id(request.getIdHandType()).build());
         productDetail.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
-        productDetail.setDiscountDate(request.getDiscountDate());
         productDetail.setCreateDate(new Date());
         productDetail.setStatus(0);
         return productDetailRepository.save(productDetail);
@@ -97,14 +95,12 @@ public class ProductDetailService {
     public ProductDetail update(Integer id,ProductDetailReq request){
         ProductDetail productDetail = productDetailRepository.getById(id);
         productDetail.setPrice(request.getPrice());
-        productDetail.setDiscount(request.getDiscount());
         productDetail.setDescription(request.getDescription());
         productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
         productDetail.setCategory(Category.builder().id(request.getIdCategory()).build());
         productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
         productDetail.setHandType(HandType.builder().id(request.getIdHandType()).build());
         productDetail.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
-        productDetail.setDiscountDate(request.getDiscountDate());
         productDetail.setUpdateDate(new Date());
         return productDetailRepository.save(productDetail);
     }
@@ -160,21 +156,19 @@ public class ProductDetailService {
                     String url = row.getCell(1).getStringCellValue();
                     Double price = row.getCell(2).getNumericCellValue();
                     String description = row.getCell(3).getStringCellValue();
-                    Double discount = row.getCell(4).getNumericCellValue();
-                    Integer dis = discount.intValue();
-                    Double category = row.getCell(5).getNumericCellValue();
+                    Double category = row.getCell(4).getNumericCellValue();
                     Integer idcate = category.intValue();
-                    Double brand = row.getCell(6).getNumericCellValue();
+                    Double brand = row.getCell(5).getNumericCellValue();
                     Integer idbrand = brand.intValue();
-                    Double design = row.getCell(7).getNumericCellValue();
+                    Double design = row.getCell(6).getNumericCellValue();
                     Integer iddesign = design.intValue();
-                    Double handType = row.getCell(8).getNumericCellValue();
+                    Double handType = row.getCell(7).getNumericCellValue();
                     Integer idhandtype = handType.intValue();
-                    Double necktype = row.getCell(9).getNumericCellValue();
+                    Double necktype = row.getCell(8).getNumericCellValue();
                     Integer idnecktype = necktype.intValue();
-                    String materials = row.getCell(10).getStringCellValue();
+                    String materials = row.getCell(9).getStringCellValue();
                     String [] mate = materials.split(",");
-                    String color_size_quanity = row.getCell(11).getStringCellValue();
+                    String color_size_quanity = row.getCell(10).getStringCellValue();
                     String [] color_size = color_size_quanity.split(",");
                     Product product = new Product();
                     product.setCode(code);
@@ -191,7 +185,6 @@ public class ProductDetailService {
                     ProductDetail productDetail = new ProductDetail();
                     productDetail.setPrice(BigDecimal.valueOf(price));
                     productDetail.setDescription(description);
-                    productDetail.setDiscount(dis);
                     productDetail.setProduct(Product.builder().id(product.getId()).build());
                     productDetail.setCategory(Category.builder().id(idcate).build());
                     productDetail.setBrand(Brand.builder().id(idbrand).build());
@@ -249,6 +242,14 @@ public class ProductDetailService {
             Integer IdColor,Integer IdSize,Integer IdMaterial,
             Integer IdCategory, Integer IdBrand , Integer IdHandType,Integer IdNeckType, Integer IdDesign,Double min ,Double max ,Integer soLuong,Integer soLuong1){
         return productDetailRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1);
+    }
+
+    public List<Promotion> getVoucher(){
+        return productDetailRepository.getVoucher();
+    }
+
+    public List<Promotion> getAllVoucher(){
+        return productDetailRepository.getAllVoucher();
     }
 
 

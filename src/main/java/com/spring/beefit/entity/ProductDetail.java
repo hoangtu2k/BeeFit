@@ -27,14 +27,6 @@ public class ProductDetail implements Serializable {
     @Column(name = "Price")
     private BigDecimal price;
 
-    @Column(name = "Discount")
-    private Integer discount;
-
-    @Column(name = "DiscountDate")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date discountDate;
-
     @Column(name = "Description")
     private String description;
 
