@@ -1,6 +1,7 @@
 package com.spring.beefit.repository;
 
 import com.spring.beefit.entity.ProductDetail;
+import com.spring.beefit.entity.Promotion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -24,7 +25,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
     ProductDetail getByCode(@Param("code") String code);
 
 
-    @Query(value = "Select e.Id,e.Price,e.Discount,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdProduct,e.IdBrand,e.IdHandType,e.IdNeckType,e.IdCategory,e.IdDesign,e.DiscountDate \n" +
+    @Query(value = "Select e.Id,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdProduct,e.IdBrand,e.IdHandType,e.IdNeckType,e.IdCategory,e.IdDesign \n" +
             "from ProductDetail e join ProductDetail_Material m on m.IdProductDetail = e.Id\n" +
             "\tjoin Material ma on ma.Id = m.IdMaterial\n" +
             "\tjoin ProductDetail_Color_Size p on p.IdProductDetail = e.Id\n" +
@@ -45,7 +46,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
             "       from ProductDetail_Color_Size\n" +
             "group by IdProductDetail\n" +
             "       having SUM(Quantity) < 1 AND SUM(Quantity) > :soLuong1 OR :soLuong IS NULL)\n" +
-            "group by e.Id,e.Price,e.Discount,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdProduct,e.IdBrand,e.IdCategory,e.IdHandType,e.IdNeckType,e.IdDesign,e.DiscountDate\n" +
+            "group by e.Id,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdProduct,e.IdBrand,e.IdCategory,e.IdHandType,e.IdNeckType,e.IdDesign\n" +
             "           order by e.createDate desc\n" +
             "        ",nativeQuery = true)
     List<ProductDetail> getAllByFilter(
@@ -55,5 +56,14 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
             @Param("idnecktype") Integer IdNeckType,@Param("iddesign") Integer IdDesign,
             @Param("min") Double min ,@Param("max") Double max,
             @Param("soLuong") Integer soLuong,@Param("soLuong1") Integer soLuong1);
+
+    @Query(value = "Select e from Promotion e \n" +
+            "where e.isDiscount = true\n" +
+            "and e.status = 0")
+    List<Promotion> getVoucher();
+
+    @Query(value = "Select e from Promotion  e " +
+            "where e.status = 0")
+    List<Promotion> getAllVoucher();
 
 }

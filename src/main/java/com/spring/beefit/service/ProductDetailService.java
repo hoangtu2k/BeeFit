@@ -244,5 +244,13 @@ public class ProductDetailService {
         return productDetailRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1);
     }
 
+    public List<Promotion> getVoucher(){
+        return productDetailRepository.getVoucher();
+    }
+
+    public List<Promotion> getAllVoucher(){
+        return productDetailRepository.getAllVoucher();
+    }
+
 
 }
