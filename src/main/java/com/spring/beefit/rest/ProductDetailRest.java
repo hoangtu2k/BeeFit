@@ -67,4 +67,13 @@ public class ProductDetailRest {
     }
 
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.delete(id));
+    }
+    @PutMapping("/khoiphuc/{id}")
+    public ResponseEntity<?> khoiphucDelete(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.khoiphucDelete(id));
+    }
+
 }

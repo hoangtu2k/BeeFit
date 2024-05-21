@@ -52,6 +52,15 @@ public class ProductDetailService {
     }
 
 
-
+    public ProductDetail delete(Integer IdProductDetail){
+        ProductDetail p = productDetailRepository.getById(IdProductDetail);
+        p.setStatus(1);
+        return productDetailRepository.save(p);
+    }
+    public ProductDetail khoiphucDelete(Integer IdProductDetail){
+        ProductDetail p = productDetailRepository.getById(IdProductDetail);
+        p.setStatus(0);
+        return productDetailRepository.save(p);
+    }
 
 }
