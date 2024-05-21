@@ -18,4 +18,11 @@ public class ProductDetail_MaterialRest {
         return ResponseEntity.ok(service.add(request));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+        service.delete(id);
+        return ResponseEntity.ok("ok");
+    }
+
+
 }

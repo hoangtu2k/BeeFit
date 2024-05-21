@@ -26,6 +26,7 @@ public class ProductRest {
         }
             return ResponseEntity.ok(service.addProduct(product));
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id,@RequestBody ProductDetailReq product){
         return ResponseEntity.ok(service.updateProduct(id,product));

@@ -40,5 +40,11 @@ public class ProductDetailColorSizeService {
         return productDetailColorSizeRepository.save(productdetailColorSize);
     }
 
+    public void delete(Integer idProductDetail){
+        List<ProductdetailColorSize> list = productDetailColorSizeRepository.getAllById(idProductDetail);
+        for(ProductdetailColorSize p : list){
+            productDetailColorSizeRepository.delete(p);
+        }
+    }
 
 }

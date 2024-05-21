@@ -18,4 +18,10 @@ public class ProductDetail_Color_SizeRest {
         return ResponseEntity.ok(service.add(request));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+        service.delete(id);
+        return ResponseEntity.ok("ok");
+    }
+
 }

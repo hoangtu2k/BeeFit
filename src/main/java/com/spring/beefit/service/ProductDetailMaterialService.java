@@ -31,5 +31,12 @@ public class ProductDetailMaterialService {
         return productDetailMaterialRepository.save(productdetailMaterial);
     }
 
+    public void delete(Integer idProductDetail){
+        List<ProductdetailMaterial> list = productDetailMaterialRepository.getAllById(idProductDetail);
+        for(ProductdetailMaterial p : list){
+            productDetailMaterialRepository.delete(p);
+        }
+    }
+
 
 }
