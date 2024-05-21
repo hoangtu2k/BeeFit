@@ -1,18 +1,24 @@
 package com.spring.beefit.service;
 
+import com.spring.beefit.entity.Material;
+import com.spring.beefit.repository.MaterialRepository;
 import com.spring.beefit.repository.ProductDetailMaterialRepository;
-import com.spring.beefit.repository.ProductDetailRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductDetailMaterialService {
 
-    private final ProductDetailMaterialRepository productDetailMaterialRepository;
+    @Autowired
+    private MaterialRepository materialRepository;
 
-    public ProductDetailMaterialService(ProductDetailMaterialRepository productDetailMaterialRepository) {
-        this.productDetailMaterialRepository = productDetailMaterialRepository;
+    @Autowired
+    private ProductDetailMaterialRepository productDetailMaterialRepository;
+
+    public List<Material> getAllMaterials() {
+        return materialRepository.getAll();
     }
-
-
 
 }

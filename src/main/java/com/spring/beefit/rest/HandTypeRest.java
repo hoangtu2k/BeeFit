@@ -1,6 +1,6 @@
 package com.spring.beefit.rest;
 
-import com.spring.beefit.service.HandTypeService;
+import com.spring.beefit.service.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class HandTypeRest {
 
     @Autowired
-    private HandTypeService handTypeService;
+    private ProductDetailService service;
 
     @GetMapping()
     public ResponseEntity<?> getAll(){
-        return ResponseEntity.ok(handTypeService.getAllHandTypes());
+        return ResponseEntity.ok(service.getAllHandTypes());
     }
 
 }

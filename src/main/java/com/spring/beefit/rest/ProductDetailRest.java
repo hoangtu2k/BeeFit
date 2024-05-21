@@ -1,6 +1,5 @@
 package com.spring.beefit.rest;
 
-import com.spring.beefit.service.ProductDetailExelService;
 import com.spring.beefit.service.ProductDetailService;
 import com.spring.beefit.viewmodel.request.ProductDetailReq;
 import jakarta.validation.Valid;
@@ -22,9 +21,6 @@ public class ProductDetailRest {
     @Autowired
     private ProductDetailService service;
 
-    @Autowired
-    private ProductDetailExelService productDetailExelService;
-
     @GetMapping("/findall")
     public ResponseEntity<?> findAll(){
         return ResponseEntity.ok(service.findAll());
@@ -43,7 +39,7 @@ public class ProductDetailRest {
     @PostMapping( value = "/importExel", consumes = "multipart/form-data")
     public ResponseEntity<String> importExel(@RequestParam("file") MultipartFile file) throws IOException {
         try{
-            productDetailExelService.importExel(file);
+            service.importExel(file);
             return ResponseEntity.status(HttpStatus.ACCEPTED).body("ok");
         }
         catch(IOException e){
@@ -66,11 +62,11 @@ public class ProductDetailRest {
         return ResponseEntity.ok(service.add(productDetail));
     }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") Integer id){
         return ResponseEntity.ok(service.delete(id));
     }
+
     @PutMapping("/khoiphuc/{id}")
     public ResponseEntity<?> khoiphucDelete(@PathVariable("id") Integer id){
         return ResponseEntity.ok(service.khoiphucDelete(id));

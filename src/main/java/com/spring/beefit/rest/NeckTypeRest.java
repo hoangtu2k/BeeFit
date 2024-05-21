@@ -1,6 +1,6 @@
 package com.spring.beefit.rest;
 
-import com.spring.beefit.service.NeckTypeService;
+import com.spring.beefit.service.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class NeckTypeRest {
 
     @Autowired
-    private NeckTypeService neckTypeService;
+    private ProductDetailService service;
 
     @GetMapping()
     public ResponseEntity<?> getAll(){
-        return ResponseEntity.ok(neckTypeService.getAllNeckTypes());
+        return ResponseEntity.ok(service.getAllNeckTypes());
     }
 
 }
