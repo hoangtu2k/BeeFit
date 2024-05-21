@@ -47,6 +47,6 @@ public class NeckType implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "neckType")
-    private Set<ProductDetail> productDetails = new HashSet<ProductDetail>();
+    private Set<Product> products = new HashSet<Product>();
 
 }

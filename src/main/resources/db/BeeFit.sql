@@ -53,20 +53,12 @@ Create table HandType(
 										 UpdateBy VARCHAR(30),
 										 Status INT
 )
+
 -- Create Product
 Create table Product(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30),
 										 Name NVARCHAR(100),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
--- Create ProductDetail
-Create table ProductDetail(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,										 
 										 Price MONEY,
 										 Discount INT,
 										 DiscountDate DATETIME,
@@ -75,8 +67,7 @@ Create table ProductDetail(
 									     UpdateDate DATETIME,
 									     CreateBy VARCHAR(30),
 									     UpdateBy VARCHAR(30),    
-									     Status INT DEFAULT 0,
-										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),		
+									     Status INT DEFAULT 0,		
 									     IdBrand INT FOREIGN KEY REFERENCES Brand(Id),								
 									     IdCategory INT FOREIGN KEY REFERENCES Category(Id),
 										 IdNeckType INT FOREIGN KEY REFERENCES NeckType(Id),
@@ -108,7 +99,7 @@ Create table Material(
 -- Create ProductDetail_Material
 Create table ProductDetail_Material(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
+										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),
 										 IdMaterial INT FOREIGN KEY REFERENCES Material(Id)
 )
 -- Create Size
@@ -135,40 +126,12 @@ Create table Color(
 Create table ProductDetail_Color_Size(
                                          Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Quantity INT,
-                                         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
+                                         IdProduct INT FOREIGN KEY REFERENCES Product(Id),
                                          IdColor INT FOREIGN KEY REFERENCES Color(Id),
                                          IdSize INT FOREIGN KEY REFERENCES Size(Id),                                 
 )
-create table OperationHistory(
-                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-                                         CreateDate DATETIME,
-                                         CreateBy VARCHAR(30),
-                                         IdProductDetail INT,
-                                         Status INT
-)
-Create table ProductDetailHistory(
-                                        Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-                                        ImageMain VARCHAR(max),
-										ImageList VARCHAR(max),
-										UpdateDate DATETIME,
-										UpdateBy VARCHAR(30),
-										Name NVARCHAR(100),
-										Price MONEY,										
-										Description NVARCHAR(255),
-										IdCategory INT ,
-										IdBrand INT,									
-										IdDesign INT ,
-										IdMaterial VARCHAR(max),
-										IdVoucher VARCHAR(max),
-										IdColor_Size_Quantity VARCHAR(max),
-										Discount INT,
-										DiscountDate DATETIME,
-										SupplierName NVARCHAR(100),
-										SupplierPhone VARCHAR(15),
-										SupplierAddress NVARCHAR(255),
-										SupplierAgree NVARCHAR(255),
-										IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id)
-)
+
+
 -----------------------------------------    product     --------------------------------------------
 
 -- Create Role
@@ -235,11 +198,7 @@ Create table Voucher(
 										 UpdateBy VARCHAR(30),
 										 Status INT
 )
-Create table Product_Voucher(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 IdVoucher INT FOREIGN KEY REFERENCES Voucher(Id),
-										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),
-)
+
 Create table Address(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Fullname NVARCHAR(100),
@@ -247,10 +206,7 @@ Create table Address(
 										 Address NVARCHAR(255),
 									 	 CityName NVARCHAR(100),
 										 DistrictName NVARCHAR(100),
-										 WardName NVARCHAR(100),
-										 CityId INT,
-										 DistrictId INT ,
-										 WardId INT,
+										 WardName NVARCHAR(100),									 
 										 CreateDate DATETIME,
 										 UpdateDate DATETIME,
 										 CreateBy VARCHAR(30),
@@ -286,7 +242,7 @@ Create table BillDetail(
 										 IdColor INT,
 										 IdSize INT,
 										 IdOrder INT FOREIGN KEY REFERENCES Bill(Id),
-										 IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id)
+										 IdProduct INT FOREIGN KEY REFERENCES Product(Id)
 )
 Create table BillHistory(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -304,12 +260,11 @@ Create table Cart(
 )
 Create table CartDetail(
 								         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-								         UnitPrice MONEY,
 								         Quantity INT,
 								         IdColor INT,
 								         IdSize INT,
 								         IdCart INT FOREIGN KEY REFERENCES Cart(Id),
-								         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id)
+								         IdProduct INT FOREIGN KEY REFERENCES Product(Id)
 )
 
 

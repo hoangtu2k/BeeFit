@@ -1,7 +1,6 @@
 package com.spring.beefit.service;
 
 import com.spring.beefit.repository.ProductDetailMaterialRepository;
-import com.spring.beefit.repository.ProductDetailRepository;
 import org.springframework.stereotype.Service;
 
 @Service

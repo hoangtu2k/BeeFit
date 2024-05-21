@@ -1,8 +1,8 @@
 package com.spring.beefit.rest;
 
 import com.spring.beefit.service.ProductDetailExelService;
-import com.spring.beefit.service.ProductDetailService;
-import com.spring.beefit.viewmodel.request.ProductDetailReq;
+import com.spring.beefit.service.ProductService;
+import com.spring.beefit.viewmodel.request.ProductReq;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,10 +17,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
-public class ProductDetailRest {
+public class ProductRest {
 
     @Autowired
-    private ProductDetailService service;
+    private ProductService service;
 
     @Autowired
     private ProductDetailExelService productDetailExelService;
@@ -58,12 +58,12 @@ public class ProductDetailRest {
     }
 
     @PostMapping
-    public ResponseEntity<?> add(@Valid @RequestBody ProductDetailReq productDetail, BindingResult result){
+    public ResponseEntity<?> add(@Valid @RequestBody ProductReq productReq, BindingResult result){
         if (result.hasErrors()){
             List<ObjectError> list = result.getAllErrors();
             return ResponseEntity.badRequest().body(list);
         }
-        return ResponseEntity.ok(service.add(productDetail));
+        return ResponseEntity.ok(service.add(productReq));
     }
 
 

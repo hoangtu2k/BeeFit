@@ -47,6 +47,6 @@ public class HandType implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "handType")
-    private Set<ProductDetail> productDetails = new HashSet<ProductDetail>();
+    private Set<Product> products = new HashSet<Product>();
 
 }
