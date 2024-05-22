@@ -68,22 +68,23 @@ Create table Product(
 Create table ProductDetail(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,										 
 										 Price MONEY,
-									     Description NVARCHAR(255),							 
-									     CreateDate DATETIME,
-									     UpdateDate DATETIME,
-									     CreateBy VARCHAR(30),
-									     UpdateBy VARCHAR(30),    
-									     Status INT DEFAULT 0,
+									         Description NVARCHAR(255),							 
+									         CreateDate DATETIME,
+									         UpdateDate DATETIME,
+									         CreateBy VARCHAR(30),
+									         UpdateBy VARCHAR(30),    
+									         Status INT DEFAULT 0,
 										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),		
-									     IdBrand INT FOREIGN KEY REFERENCES Brand(Id),								
-									     IdCategory INT FOREIGN KEY REFERENCES Category(Id),
+									         IdBrand INT FOREIGN KEY REFERENCES Brand(Id),								
+									         IdCategory INT FOREIGN KEY REFERENCES Category(Id),
 										 IdNeckType INT FOREIGN KEY REFERENCES NeckType(Id),
 										 IdHandType INT FOREIGN KEY REFERENCES HandType(Id),
-									     IdDesign INT FOREIGN KEY REFERENCES Design(Id),
+									         IdDesign INT FOREIGN KEY REFERENCES Design(Id),
+									         IdPromotion INT FOREIGN KEY REFERENCES Promotion(Id),
 )
 -- Create Promotion
 Create table Promotion (
-                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+                                         					 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30),
 										 Name NVARCHAR(100),
 									 	 DiscountType BIT,
@@ -93,13 +94,10 @@ Create table Promotion (
 										 StartDate DATETIME,
 										 EndDate DATETIME,
 										 CreateDate DATETIME,
+									         UpdateDate DATETIME,
+									         CreateBy VARCHAR(30),
+									         UpdateBy VARCHAR(30),
 										 Status INT																	 
-)
--- Create ProductPromotion
-Create table Product_Promotion(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 IdPromotion INT FOREIGN KEY REFERENCES Promotion(Id),
-										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),
 )
 -- Create ProductImage
 Create table ProductImage(
