@@ -31,6 +31,8 @@ public class ProductDetailService {
     private HandTypeRepository handTypeRepository;
     @Autowired
     private NeckTypeRepository neckTypeRepository;
+    @Autowired
+    private PromotionRepository promotionRepository;
 
     @Autowired
     private ProductDetailRepository productDetailRepository;
@@ -59,6 +61,9 @@ public class ProductDetailService {
     public List<NeckType> getAllNeckTypes() {
         return neckTypeRepository.getAll();
     }
+    public List<Promotion> getAllPromotions() {
+        return promotionRepository.getAll();
+    }
 
     public List<ProductDetail> findAll() {
         return productDetailRepository.findAll();
@@ -77,30 +82,64 @@ public class ProductDetailService {
         return productDetail;
     }
 
-    public ProductDetail add(ProductDetailReq request) {
+    public ProductDetail addProductDetail(ProductDetailReq request) {
         ProductDetail productDetail = new ProductDetail();
         productDetail.setPrice(request.getPrice());
         productDetail.setDescription(request.getDescription());
+        productDetail.setCreateBy(request.getCreateBy());
         productDetail.setProduct(Product.builder().id(request.getIdProduct()).build());
-        productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
+        // Xử lý trường idBrand có thể là null
+        if (request.getIdBrand() != null) {
+            productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
+        } else {
+            productDetail.setBrand(null);
+        }
         productDetail.setCategory(Category.builder().id(request.getIdCategory()).build());
-        productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
+        // Xử lý trường idDesign có thể là null
+        if (request.getIdDesign() != null) {
+            productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
+        } else {
+            productDetail.setDesign(null);
+        }
         productDetail.setHandType(HandType.builder().id(request.getIdHandType()).build());
         productDetail.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
+        // Xử lý trường idPromotion có thể là null
+        if (request.getIdPromotion() != null) {
+            productDetail.setPromotion(Promotion.builder().id(request.getIdPromotion()).build());
+        } else {
+            productDetail.setPromotion(null);
+        }
         productDetail.setCreateDate(new Date());
         productDetail.setStatus(0);
         return productDetailRepository.save(productDetail);
     }
 
-    public ProductDetail update(Integer id,ProductDetailReq request){
+    public ProductDetail updateProductDetail(Integer id,ProductDetailReq request){
         ProductDetail productDetail = productDetailRepository.getById(id);
         productDetail.setPrice(request.getPrice());
         productDetail.setDescription(request.getDescription());
-        productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
+        productDetail.setUpdateBy(request.getUpdateBy());
+        // Xử lý trường idBrand có thể là null
+        if (request.getIdBrand() != null) {
+            productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
+        } else {
+            productDetail.setBrand(null);
+        }
         productDetail.setCategory(Category.builder().id(request.getIdCategory()).build());
-        productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
+        // Xử lý trường idDesign có thể là null
+        if (request.getIdDesign() != null) {
+            productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
+        } else {
+            productDetail.setDesign(null);
+        }
         productDetail.setHandType(HandType.builder().id(request.getIdHandType()).build());
         productDetail.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
+        // Xử lý trường idPromotion có thể là null
+        if (request.getIdPromotion() != null) {
+            productDetail.setPromotion(Promotion.builder().id(request.getIdPromotion()).build());
+        } else {
+            productDetail.setPromotion(null);
+        }
         productDetail.setUpdateDate(new Date());
         return productDetailRepository.save(productDetail);
     }
@@ -132,6 +171,7 @@ public class ProductDetailService {
         Product product = new Product();
         product.setCode(genCode());
         product.setName(request.getName());
+        product.setCreateBy(request.getCreateBy());
         product.setCreateDate(new Date());
         product.setStatus(0);
         return productRepository.save(product);
@@ -140,8 +180,41 @@ public class ProductDetailService {
     public Product updateProduct(Integer id, ProductDetailReq request){
         Product product = productRepository.getById(id);
         product.setName(request.getName());
+        product.setUpdateBy(request.getUpdateBy());
         product.setUpdateDate(new Date());
         return productRepository.save(product);
+    }
+
+    public ProductImage addImage(ProductDetailReq image){
+        ProductImage productImage = new ProductImage();
+        productImage.setUrl(image.getUrl());
+        productImage.setMainImage(image.getMainImage());
+        productImage.setProduct(Product.builder().id(image.getIdProduct()).build());
+        productImage.setCreateDate(new Date());
+        productImage.setStatus(0);
+        return productImageRepository.save(productImage);
+    }
+    public void deleteImg(Integer IdProduct){
+        List<ProductImage> list = productImageRepository.getAllByIdSP(IdProduct);
+        for(ProductImage p : list){
+            productImageRepository.delete(p);
+        }
+    }
+    public void delete1(Integer IdProduct){
+        List<ProductImage> list = productImageRepository.getAllByIdSP1(IdProduct);
+        for(ProductImage p : list){
+            productImageRepository.delete(p);
+        }
+    }
+
+    public List<ProductDetail> getAllbyFilter(
+            Integer IdColor,Integer IdSize,Integer IdMaterial,
+            Integer IdCategory, Integer IdBrand , Integer IdHandType,
+            Integer IdNeckType, Integer IdDesign,Integer IdPromotion,
+            Double min ,Double max ,
+            Integer soLuong,Integer soLuong1
+    ){
+        return productDetailRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,IdPromotion,min,max,soLuong,soLuong1);
     }
 
     public void importExel(MultipartFile file) throws IOException {
@@ -215,42 +288,5 @@ public class ProductDetailService {
             inputStream.close();
         }
     }
-
-    public ProductImage addImage(ProductDetailReq image){
-        ProductImage productImage = new ProductImage();
-        productImage.setUrl(image.getUrl());
-        productImage.setMainImage(image.getMainImage());
-        productImage.setProduct(Product.builder().id(image.getIdProduct()).build());
-        productImage.setCreateDate(new Date());
-        productImage.setStatus(0);
-        return productImageRepository.save(productImage);
-    }
-    public void deleteImg(Integer IdProduct){
-        List<ProductImage> list = productImageRepository.getAllByIdSP(IdProduct);
-        for(ProductImage p : list){
-            productImageRepository.delete(p);
-        }
-    }
-    public void delete1(Integer IdProduct){
-        List<ProductImage> list = productImageRepository.getAllByIdSP1(IdProduct);
-        for(ProductImage p : list){
-            productImageRepository.delete(p);
-        }
-    }
-
-    public List<ProductDetail> getAllbyFilter(
-            Integer IdColor,Integer IdSize,Integer IdMaterial,
-            Integer IdCategory, Integer IdBrand , Integer IdHandType,Integer IdNeckType, Integer IdDesign,Double min ,Double max ,Integer soLuong,Integer soLuong1){
-        return productDetailRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1);
-    }
-
-    public List<Promotion> getVoucher(){
-        return productDetailRepository.getVoucher();
-    }
-
-    public List<Promotion> getAllVoucher(){
-        return productDetailRepository.getAllVoucher();
-    }
-
 
 }

@@ -50,11 +50,14 @@ public class Promotion implements Serializable {
     @Column(name = "CreateDate")
     private Timestamp createDate;
 
+    @Column(name = "UpdateDate")
+    private Timestamp updateDate;
+
     @Column(name = "Status")
     private Integer status;
 
     @JsonIgnore
     @OneToMany(mappedBy = "promotion")
-    private Set<ProductPromotion> productPromotions = new HashSet<>();
+    private Set<ProductDetail> productDetails = new HashSet<ProductDetail>();
 
 }

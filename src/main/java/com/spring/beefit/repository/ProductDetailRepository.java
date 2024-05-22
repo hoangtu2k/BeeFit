@@ -25,7 +25,7 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
     ProductDetail getByCode(@Param("code") String code);
 
 
-    @Query(value = "Select e.Id,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdProduct,e.IdBrand,e.IdHandType,e.IdNeckType,e.IdCategory,e.IdDesign \n" +
+    @Query(value = "Select e.Id,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdProduct,e.IdBrand,e.IdHandType,e.IdNeckType,e.IdCategory,e.IdDesign,e.IdPromotion \n" +
             "from ProductDetail e join ProductDetail_Material m on m.IdProductDetail = e.Id\n" +
             "\tjoin Material ma on ma.Id = m.IdMaterial\n" +
             "\tjoin ProductDetail_Color_Size p on p.IdProductDetail = e.Id\n" +
@@ -40,13 +40,14 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
             "\tand (e.IdDesign = :iddesign or :iddesign is null) \n" +
             "\tand (e.IdHandType = :idhandtype or :idhandtype is null) \n" +
             "\tand (e.IdNeckType = :idnecktype or :idnecktype is null) \n" +
+            "\tand (e.IdPromotion = :idpromotion or :idpromotion is null) \n" +
             "\tand e.Price >= :min and e.Price <= :max and e.Status = 0\n" +
             "\tand e.Id in (\n" +
             "select IdProductDetail\n" +
             "       from ProductDetail_Color_Size\n" +
             "group by IdProductDetail\n" +
             "       having SUM(Quantity) < 1 AND SUM(Quantity) > :soLuong1 OR :soLuong IS NULL)\n" +
-            "group by e.Id,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdProduct,e.IdBrand,e.IdCategory,e.IdHandType,e.IdNeckType,e.IdDesign\n" +
+            "group by e.Id,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdProduct,e.IdBrand,e.IdCategory,e.IdHandType,e.IdNeckType,e.IdDesign,e.IdPromotion\n" +
             "           order by e.createDate desc\n" +
             "        ",nativeQuery = true)
     List<ProductDetail> getAllByFilter(
@@ -54,16 +55,10 @@ public interface ProductDetailRepository extends JpaRepository<ProductDetail, In
             @Param("idmaterial") Integer IdMaterial,@Param("idcategory") Integer IdCategory ,
             @Param("idbrand") Integer IdBrand ,@Param("idhandtype") Integer IdHandType,
             @Param("idnecktype") Integer IdNeckType,@Param("iddesign") Integer IdDesign,
+            @Param("idpromotion") Integer IdPromotion,
             @Param("min") Double min ,@Param("max") Double max,
             @Param("soLuong") Integer soLuong,@Param("soLuong1") Integer soLuong1);
 
-    @Query(value = "Select e from Promotion e \n" +
-            "where e.isDiscount = true\n" +
-            "and e.status = 0")
-    List<Promotion> getVoucher();
 
-    @Query(value = "Select e from Promotion  e " +
-            "where e.status = 0")
-    List<Promotion> getAllVoucher();
 
 }

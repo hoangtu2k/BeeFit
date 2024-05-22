@@ -55,8 +55,5 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product")
     private Set<ProductDetail> productDetails = new HashSet<ProductDetail>();
 
-    @OneToMany(mappedBy = "product")
-    private Set<ProductPromotion> productPromotions = new HashSet<ProductPromotion>();
-
 
 }
