@@ -1,4 +1,4 @@
-﻿Create database BeeFit
+Create database BeeFit
 go
 use BeeFit
 go
@@ -64,6 +64,23 @@ Create table Product(
 										 UpdateBy VARCHAR(30),
 										 Status INT
 )
+-- Create Promotion
+Create table Promotion (
+                                         					 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Code VARCHAR(30),
+										 Name NVARCHAR(100),
+									 	 DiscountType BIT,
+									 	 IsDiscount BIT,
+										 Discount INT ,
+										 Cash MONEY,
+										 StartDate DATETIME,
+										 EndDate DATETIME,
+										 CreateDate DATETIME,
+									         UpdateDate DATETIME,
+									     	 CreateBy VARCHAR(30),
+									      	 UpdateBy VARCHAR(30),
+										 Status INT																	 
+)
 -- Create ProductDetail
 Create table ProductDetail(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,										 
@@ -81,23 +98,6 @@ Create table ProductDetail(
 										 IdHandType INT FOREIGN KEY REFERENCES HandType(Id),
 									         IdDesign INT FOREIGN KEY REFERENCES Design(Id),
 									         IdPromotion INT FOREIGN KEY REFERENCES Promotion(Id),
-)
--- Create Promotion
-Create table Promotion (
-                                         					 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Code VARCHAR(30),
-										 Name NVARCHAR(100),
-									 	 DiscountType BIT,
-									 	 IsDiscount BIT,
-										 Discount INT ,
-										 Cash MONEY,
-										 StartDate DATETIME,
-										 EndDate DATETIME,
-										 CreateDate DATETIME,
-									         UpdateDate DATETIME,
-									         CreateBy VARCHAR(30),
-									         UpdateBy VARCHAR(30),
-										 Status INT																	 
 )
 -- Create ProductImage
 Create table ProductImage(
@@ -149,11 +149,11 @@ Create table Color(
 )
 -- Create ProductDetail_Color_Size
 Create table ProductDetail_Color_Size(
-                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+                                         					 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Quantity INT,
-                                         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
-                                         IdColor INT FOREIGN KEY REFERENCES Color(Id),
-                                         IdSize INT FOREIGN KEY REFERENCES Size(Id),                                 
+                                         					 IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
+                                       						 IdColor INT FOREIGN KEY REFERENCES Color(Id),
+                                       						 IdSize INT FOREIGN KEY REFERENCES Size(Id),                                 
 )
 
 -----------------------------------------    product     --------------------------------------------
@@ -189,9 +189,9 @@ Create table Employee(
 -- Create Customer
 Create table Customer(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Code VARCHAR(30) UNIQUE,
+										 Code VARCHAR(30),
 										 Fullname NVARCHAR(100),
-										 Username VARCHAR(30) UNIQUE,
+										 Username VARCHAR(30),
 										 Password VARCHAR(30),
 										 Image VARCHAR(255),
 										 Gender BIT,
@@ -203,22 +203,30 @@ Create table Customer(
 										 UpdateBy VARCHAR(30),
 										 Status INT,
 )
-
-Create table Voucher(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Code VARCHAR(30),
-										 Name NVARCHAR(100),
-										 TypeVoucher BIT,
-										 IsVoucher BIT,
-										 Discount INT ,
-										 Cash MONEY,
-										 StartDate DATETIME,
-										 EndDate DATETIME,			
-										 CreateDate DATETIME,
+Create table Coupon(
+									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+									     Code VARCHAR(30),
+									     Name NVARCHAR(100),
+									     IsType BIT,
+									     Discount INT,
+									     Cash MONEY,
+									     CreateDate DATETIME,
 										 UpdateDate DATETIME,
 										 CreateBy VARCHAR(30),
 										 UpdateBy VARCHAR(30),
-										 Status INT
+									    	 Status INT,
+									    	 IdCustomer INT FOREIGN KEY REFERENCES Customer(Id)
+)
+Create table Voucher(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Idvoucher VARCHAR(30),
+										 Name NVARCHAR(100),
+										 DiscountType BIT,
+										 Discount INT,
+										 Price MONEY,
+										 StartDate DATETIME,
+										 EndDate DATETIME,			
+										 Quantity INT
 )
 
 Create table Address(
@@ -246,12 +254,13 @@ Create table Bill(
 										 TotalPrice MONEY,
 										 ShipPrice MONEY,
 										 TotalPriceLast MONEY,
-										 Note NVARCHAR(255),
+										 Note NVARCHAR(255),									 
 										 PayType INT ,
 										 PayStatus INT,
-										 TypeStatus INT,
-										 CodeGHN VARCHAR(30),
+										 TypeStatus INT,									 
 										 Status INT,
+										 CodeGHN VARCHAR(30),
+										 IdCoupon INT,
 										 IdAddress INT FOREIGN KEY REFERENCES Address(Id),
 										 IdCustomer INT FOREIGN KEY REFERENCES Customer(Id),
 										 IdVoucher INT FOREIGN KEY REFERENCES Voucher(Id),
@@ -282,7 +291,6 @@ Create table Cart(
 )
 Create table CartDetail(
 								         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-								         UnitPrice MONEY,
 								         Quantity INT,
 								         IdColor INT,
 								         IdSize INT,
@@ -302,8 +310,10 @@ Create table Background(
 )
 
 
-
 ------------------------------------- Inser into product start ------------------------------------------
+-- Thêm dữ liệu vào bảng "Promontion"
+INSERT INTO Promotion( Code, Name, DiscountType, IsDiscount , Discount, Cash , StartDate,EndDate,CreateDate,UpdateDate,CreateBy,UpdateBy,Status)
+VALUES ( 'PRO001',N'Mừng quốc khánh 2/9', 1 , 1 , 20 , 20 , GETDATE() , '2024-10-01 00:00:00.000' ,GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 -- Thêm dữ liệu vào bảng "Category"
 INSERT INTO Category(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
 VALUES (N'Áo thun tay ngắn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
@@ -355,6 +365,7 @@ VALUES ('S',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('M',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('L',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('XL',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
 
 -------------------------------------- Inser into product end --------------------------------------------
 
