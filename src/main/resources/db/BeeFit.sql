@@ -203,20 +203,7 @@ Create table Customer(
 										 UpdateBy VARCHAR(30),
 										 Status INT,
 )
-Create table Coupon(
-									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-									     Code VARCHAR(30),
-									     Name NVARCHAR(100),
-									     IsType BIT,
-									     Discount INT,
-									     Cash MONEY,
-									     CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-									     Status INT,
-									     IdCustomer INT FOREIGN KEY REFERENCES Customer(Id)
-)
+
 Create table Voucher(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Idvoucher VARCHAR(30),
@@ -228,7 +215,6 @@ Create table Voucher(
 										 EndDate DATETIME,			
 										 Quantity INT
 )
-
 Create table Address(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Fullname NVARCHAR(100),
@@ -260,7 +246,6 @@ Create table Bill(
 										 TypeStatus INT,									 
 										 Status INT,
 										 CodeGHN VARCHAR(30),
-										 IdCoupon INT,
 										 IdAddress INT FOREIGN KEY REFERENCES Address(Id),
 										 IdCustomer INT FOREIGN KEY REFERENCES Customer(Id),
 										 IdVoucher INT FOREIGN KEY REFERENCES Voucher(Id),
@@ -307,6 +292,36 @@ Create table Background(
 									     CreateBy VARCHAR(30),
 									     UpdateBy VARCHAR(30),
 									     Status INT
+)
+
+
+-- Create Coupon
+Create table Coupon(
+									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+									     Code VARCHAR(30),
+									     Name NVARCHAR(100),
+									     MinValue INT,
+										 MaxValue INT,
+										 Quantity INT,
+										 StartDate DATETIME,
+										 EndDate DATETIME,	
+									     CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+									     Status INT,
+										 IdOrder INT FOREIGN KEY REFERENCES Bill(Id)
+)
+-- Create Customer
+Create table Customer_Coupon(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 IdCustomer INT FOREIGN KEY REFERENCES Customer(Id),
+										 IdCoupon INT FOREIGN KEY REFERENCES Coupon(Id),
+										 CreateDate DATETIME,
+										 UpdateDate DATETIME,
+										 CreateBy VARCHAR(30),
+										 UpdateBy VARCHAR(30),
+										 Status INT,										 
 )
 
 
