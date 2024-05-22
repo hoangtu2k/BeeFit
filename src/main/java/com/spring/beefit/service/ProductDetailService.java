@@ -31,8 +31,6 @@ public class ProductDetailService {
     private HandTypeRepository handTypeRepository;
     @Autowired
     private NeckTypeRepository neckTypeRepository;
-    @Autowired
-    private PromotionRepository promotionRepository;
 
     @Autowired
     private ProductDetailRepository productDetailRepository;
@@ -60,9 +58,6 @@ public class ProductDetailService {
     }
     public List<NeckType> getAllNeckTypes() {
         return neckTypeRepository.getAll();
-    }
-    public List<Promotion> getAllPromotions() {
-        return promotionRepository.getAll();
     }
 
     public List<ProductDetail> findAll() {
