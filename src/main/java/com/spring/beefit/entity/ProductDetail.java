@@ -74,6 +74,10 @@ public class ProductDetail implements Serializable {
     @JoinColumn(name = "IdNeckType")
     private NeckType neckType;
 
+    @ManyToOne
+    @JoinColumn(name = "IdPromotion")
+    private Promotion promotion;
+
     @OneToMany(mappedBy = "productDetail")
     private Set<ProductdetailMaterial> productDetail_materials = new HashSet<ProductdetailMaterial>();
 

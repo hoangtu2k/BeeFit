@@ -22,6 +22,7 @@ public class ProductDetailReq {
     private Integer IdDesign;
     private Integer IdHandType;
     private Integer IdNeckType;
+    private Integer IdPromotion;
     private String Url;
     private Boolean MainImage;
     private Integer IdProductDetail;

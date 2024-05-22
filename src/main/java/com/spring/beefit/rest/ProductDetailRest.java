@@ -60,12 +60,12 @@ public class ProductDetailRest {
             List<ObjectError> list = result.getAllErrors();
             return ResponseEntity.badRequest().body(list);
         }
-        return ResponseEntity.ok(service.add(productDetail));
+        return ResponseEntity.ok(service.addProductDetail(productDetail));
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") Integer id,@RequestBody ProductDetailReq request){
-        return ResponseEntity.ok(service.update(id,request));
+        return ResponseEntity.ok(service.updateProductDetail(id,request));
     }
 
     @PostMapping("/validateupdate")
@@ -99,15 +99,6 @@ public class ProductDetailRest {
         return ResponseEntity.ok(service.khoiphucDelete(id));
     }
 
-    @GetMapping("/getVoucher")
-    public ResponseEntity<?> getVoucher(){
-        return ResponseEntity.ok(service.getVoucher());
-    }
-    @GetMapping("/getAllVoucher")
-    public ResponseEntity<?> getAllVoucher(){
-        return ResponseEntity.ok(service.getAllVoucher());
-    }
-
 
     @GetMapping("/filter")
     public ResponseEntity<?> getAllByFilter(
@@ -119,11 +110,12 @@ public class ProductDetailRest {
             @RequestParam(name = "idhandtype",required = false) Integer IdHandType,
             @RequestParam(name = "idnecktype",required = false) Integer IdNeckType,
             @RequestParam(name = "iddesign",required = false) Integer IdDesign,
+            @RequestParam(name = "idpromotion",required = false) Integer IdPromotion,
             @RequestParam("min") Double min,
             @RequestParam("max") Double max,
             @RequestParam(name = "soLuong",required = false) Integer soLuong,
             @RequestParam(name = "soLuong1",required = false) Integer soLuong1){
-        return ResponseEntity.ok(service.getAllbyFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand,IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1));
+        return ResponseEntity.ok(service.getAllbyFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand,IdHandType,IdNeckType,IdDesign,IdPromotion,min,max,soLuong,soLuong1));
     }
 
 }

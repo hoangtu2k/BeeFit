@@ -47,6 +47,11 @@ public class AttributesProductRest {
         return ResponseEntity.ok(productDetailServicee.getAllNeckTypes());
     }
 
+    @GetMapping("/promotion")
+    public ResponseEntity<?> getAllPromotions(){
+        return ResponseEntity.ok(productDetailServicee.getAllPromotions());
+    }
+
     @GetMapping("/material")
     public ResponseEntity<?> getAllMaterials(){
         return ResponseEntity.ok(productDetailMaterialService.getAllMaterials());
@@ -61,5 +66,6 @@ public class AttributesProductRest {
     public ResponseEntity<?> getAllColors(){
         return ResponseEntity.ok(productDetailColorSizeService.getAllColors());
     }
+
 
 }
