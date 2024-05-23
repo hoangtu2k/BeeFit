@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity
 public class Employee implements Serializable {
 
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
     private Integer id;
