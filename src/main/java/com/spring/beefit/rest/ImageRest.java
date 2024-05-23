@@ -1,7 +1,7 @@
 package com.spring.beefit.rest;
 
 import com.spring.beefit.service.ProductDetailService;
-import com.spring.beefit.viewmodel.request.ProductDetailReq;
+import com.spring.beefit.viewmodel.request.ProductReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ public class ImageRest {
     @Autowired
     private ProductDetailService service;
     @PostMapping
-    public ResponseEntity<?> add(@RequestBody ProductDetailReq image){
+    public ResponseEntity<?> add(@RequestBody ProductReq image){
         return ResponseEntity.ok(service.addImage(image));
     }
     @DeleteMapping("/{id}")

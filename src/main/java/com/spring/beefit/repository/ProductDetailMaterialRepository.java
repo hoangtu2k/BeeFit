@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface ProductDetailMaterialRepository extends JpaRepository<ProductdetailMaterial, Integer> {
 
-    @Query(value = "Select e from ProductdetailMaterial  e where  e.productDetail.id =:id")
+    @Query(value = "Select e from ProductdetailMaterial  e where  e.product.id =:id")
     List<ProductdetailMaterial> getAllById(@Param("id") Integer id);
 
 

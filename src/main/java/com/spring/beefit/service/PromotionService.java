@@ -1,13 +1,14 @@
 package com.spring.beefit.service;
 
-import com.spring.beefit.entity.ProductDetail;
+import com.spring.beefit.entity.Product;
 import com.spring.beefit.entity.Promotion;
-import com.spring.beefit.repository.ProductDetailRepository;
+import com.spring.beefit.repository.ProductRepository;
 import com.spring.beefit.repository.PromotionRepository;
-import com.spring.beefit.viewmodel.request.PromotionRequest;
+import com.spring.beefit.viewmodel.request.PromotionReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
@@ -18,19 +19,33 @@ public class PromotionService {
     private PromotionRepository promotionRepository;
 
     @Autowired
-    private ProductDetailRepository productDetailRepository;
+    private ProductRepository productRepository;
 
     // CRUD Promotion
     public List<Promotion> getAllPromotions() {
         return promotionRepository.getAll();
     }
 
-    public Promotion createPromotion(PromotionRequest request) {
+    public List<Promotion> getByEndDateAll() {
+        return promotionRepository.getByEndDateAll();
+    }
+
+    public Promotion getByCode(String code){
+        return promotionRepository.getByCode(code);
+    }
+
+    public String genCode() {
+        // Tạo đối tượng Random
+        long timestamp = Instant.now().getEpochSecond();
+        String code = "KM" + timestamp;
+        return code;
+    }
+
+    public Promotion createPromotion(PromotionReq request) {
         Promotion promotion = new Promotion();
-        promotion.setCode(request.getCode());
+        promotion.setCode(genCode());
         promotion.setName(request.getName());
         promotion.setDiscountType(request.getDiscountType());
-        promotion.setIsDiscount(request.getIsDiscount());
         promotion.setDiscount(request.getDiscount());
         promotion.setCash(request.getCash());
         promotion.setStartDate(request.getStartDate());
@@ -43,10 +58,10 @@ public class PromotionService {
 
     public void updatePromotionForAllProducts(Integer promotionId) {
         Promotion promotion = promotionRepository.getById(promotionId);
-        List<ProductDetail> allProductDetails = productDetailRepository.getAll();
-        for (ProductDetail productDetail : allProductDetails) {
-            productDetail.setPromotion(promotion);
-            productDetailRepository.save(productDetail);
+        List<Product> products = productRepository.getAll();
+        for (Product product : products) {
+            product.setPromotion(promotion);
+            productRepository.save(product);
         }
     }
 

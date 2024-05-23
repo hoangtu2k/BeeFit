@@ -34,9 +34,6 @@ public class Promotion implements Serializable {
     @Column(name = "DiscountType")
     private Boolean discountType;
 
-    @Column(name = "IsDiscount")
-    private Boolean isDiscount;
-
     @Column(name = "Discount")
     private Integer discount;
 
@@ -70,6 +67,6 @@ public class Promotion implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "promotion")
-    private Set<ProductDetail> productDetails = new HashSet<ProductDetail>();
+    private Set<Product> products = new HashSet<Product>();
 
 }

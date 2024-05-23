@@ -53,24 +53,12 @@ Create table HandType(
 										 UpdateBy VARCHAR(30),
 										 Status INT
 )
--- Create Product
-Create table Product(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Code VARCHAR(30),
-										 Name NVARCHAR(100),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT
-)
 -- Create Promotion
 Create table Promotion (
                                          Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30),
 										 Name NVARCHAR(100),
 									 	 DiscountType BIT,
-									 	 IsDiscount BIT,
 										 Discount INT ,
 										 Cash MONEY,
 										 StartDate DATETIME,
@@ -81,17 +69,18 @@ Create table Promotion (
 									     UpdateBy VARCHAR(30),
 										 Status INT																	 
 )
--- Create ProductDetail
-Create table ProductDetail(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,										 
+-- Create Product
+Create table Product(
+										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 Code VARCHAR(30),
+										 Name NVARCHAR(100),
 										 Price MONEY,
 									     Description NVARCHAR(255),							 
 									     CreateDate DATETIME,
 									     UpdateDate DATETIME,
 									     CreateBy VARCHAR(30),
 									     UpdateBy VARCHAR(30),    
-									     Status INT DEFAULT 0,
-										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),		
+									     Status INT,	
 									     IdBrand INT FOREIGN KEY REFERENCES Brand(Id),								
 									     IdCategory INT FOREIGN KEY REFERENCES Category(Id),
 										 IdNeckType INT FOREIGN KEY REFERENCES NeckType(Id),
@@ -124,7 +113,7 @@ Create table Material(
 -- Create ProductDetail_Material
 Create table ProductDetail_Material(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
+										 IdProduct INT FOREIGN KEY REFERENCES Product(Id),
 										 IdMaterial INT FOREIGN KEY REFERENCES Material(Id)
 )
 -- Create Size
@@ -149,11 +138,11 @@ Create table Color(
 )
 -- Create ProductDetail_Color_Size
 Create table ProductDetail_Color_Size(
-                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Quantity INT,
-                                         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id),
+                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,										 
+                                         IdProduct INT FOREIGN KEY REFERENCES Product(Id),
                                          IdColor INT FOREIGN KEY REFERENCES Color(Id),
-                                         IdSize INT FOREIGN KEY REFERENCES Size(Id),                                 
+                                         IdSize INT FOREIGN KEY REFERENCES Size(Id),   
+										 Quantity INT,
 )
 
 -----------------------------------------    product     --------------------------------------------
@@ -258,7 +247,7 @@ Create table BillDetail(
 										 IdColor INT,
 										 IdSize INT,
 										 IdOrder INT FOREIGN KEY REFERENCES Bill(Id),
-										 IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id)
+										 IdProduct INT FOREIGN KEY REFERENCES Product(Id)
 )
 Create table BillHistory(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -280,7 +269,7 @@ Create table CartDetail(
 								         IdColor INT,
 								         IdSize INT,
 								         IdCart INT FOREIGN KEY REFERENCES Cart(Id),
-								         IdProductDetail INT FOREIGN KEY REFERENCES ProductDetail(Id)
+								         IdProduct INT FOREIGN KEY REFERENCES Product(Id)
 )
 Create table Background(
 									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -327,8 +316,8 @@ Create table Customer_Coupon(
 
 ------------------------------------- Inser into product start ------------------------------------------
 -- Thêm dữ liệu vào bảng "Promontion"
-INSERT INTO Promotion( Code, Name, DiscountType, IsDiscount , Discount, Cash , StartDate,EndDate,CreateDate,UpdateDate,CreateBy,UpdateBy,Status)
-VALUES ( 'PRO001',N'Mừng quốc khánh 2/9', 1 , 1 , 20 , 20 , GETDATE() , '2024-10-01 00:00:00.000' ,GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+INSERT INTO Promotion( Code, Name, DiscountType , Discount, Cash , StartDate,EndDate,CreateDate,UpdateDate,CreateBy,UpdateBy,Status)
+VALUES ( 'PRO001',N'Mừng quốc khánh 2/9', 1 , 20 , 20 , GETDATE() , '2024-10-01 00:00:00.000' ,GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 -- Thêm dữ liệu vào bảng "Category"
 INSERT INTO Category(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
 VALUES (N'Áo thun tay ngắn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),

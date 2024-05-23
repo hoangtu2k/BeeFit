@@ -47,6 +47,6 @@ public class Brand implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "brand")
-    private Set<ProductDetail> productDetails = new HashSet<ProductDetail>();
+    private Set<Product> products = new HashSet<Product>();
 
 }

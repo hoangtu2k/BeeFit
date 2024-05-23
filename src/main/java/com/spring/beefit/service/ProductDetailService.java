@@ -2,7 +2,7 @@ package com.spring.beefit.service;
 
 import com.spring.beefit.entity.*;
 import com.spring.beefit.repository.*;
-import com.spring.beefit.viewmodel.request.ProductDetailReq;
+import com.spring.beefit.viewmodel.request.ProductReq;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -33,8 +33,6 @@ public class ProductDetailService {
     private NeckTypeRepository neckTypeRepository;
 
     @Autowired
-    private ProductDetailRepository productDetailRepository;
-    @Autowired
     private ProductRepository productRepository;
     @Autowired
     private ProductImageRepository productImageRepository;
@@ -60,99 +58,101 @@ public class ProductDetailService {
         return neckTypeRepository.getAll();
     }
 
-    public List<ProductDetail> findAll() {
-        return productDetailRepository.findAll();
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
-    public List<ProductDetail> getAll() {
-        return productDetailRepository.getAll();
+    public List<Product> getAll() {
+        return productRepository.getAll();
     }
 
-    public List<ProductDetail> getAll1() {
-        return productDetailRepository.getAll1();
+    public List<Product> getAll1() {
+        return productRepository.getAll1();
     }
 
-    public ProductDetail getById(Integer id){
-        ProductDetail productDetail = productDetailRepository.getById(id);
-        return productDetail;
+    public Product getById(Integer id){
+        Product product = productRepository.getById(id);
+        return product;
     }
 
-    public ProductDetail addProductDetail(ProductDetailReq request) {
-        ProductDetail productDetail = new ProductDetail();
-        productDetail.setPrice(request.getPrice());
-        productDetail.setDescription(request.getDescription());
-        productDetail.setCreateBy(request.getCreateBy());
-        productDetail.setProduct(Product.builder().id(request.getIdProduct()).build());
+    public Product addProduct(ProductReq request) {
+        Product product = new Product();
+        product.setCode(genCode());
+        product.setName(request.getName());
+        product.setPrice(request.getPrice());
+        product.setDescription(request.getDescription());
+        product.setCreateBy(request.getCreateBy());
         // Xử lý trường idBrand có thể là null
         if (request.getIdBrand() != null) {
-            productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
+            product.setBrand(Brand.builder().id(request.getIdBrand()).build());
         } else {
-            productDetail.setBrand(null);
+            product.setBrand(null);
         }
-        productDetail.setCategory(Category.builder().id(request.getIdCategory()).build());
+        product.setCategory(Category.builder().id(request.getIdCategory()).build());
         // Xử lý trường idDesign có thể là null
         if (request.getIdDesign() != null) {
-            productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
+            product.setDesign(Design.builder().id(request.getIdDesign()).build());
         } else {
-            productDetail.setDesign(null);
+            product.setDesign(null);
         }
-        productDetail.setHandType(HandType.builder().id(request.getIdHandType()).build());
-        productDetail.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
+        product.setHandType(HandType.builder().id(request.getIdHandType()).build());
+        product.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
         // Xử lý trường idPromotion có thể là null
         if (request.getIdPromotion() != null) {
-            productDetail.setPromotion(Promotion.builder().id(request.getIdPromotion()).build());
+            product.setPromotion(Promotion.builder().id(request.getIdPromotion()).build());
         } else {
-            productDetail.setPromotion(null);
+            product.setPromotion(null);
         }
-        productDetail.setCreateDate(new Date());
-        productDetail.setStatus(0);
-        return productDetailRepository.save(productDetail);
+        product.setCreateDate(new Date());
+        product.setStatus(0);
+        return productRepository.save(product);
     }
 
-    public ProductDetail updateProductDetail(Integer id,ProductDetailReq request){
-        ProductDetail productDetail = productDetailRepository.getById(id);
-        productDetail.setPrice(request.getPrice());
-        productDetail.setDescription(request.getDescription());
-        productDetail.setUpdateBy(request.getUpdateBy());
+    public Product updateProduct(Integer id, ProductReq request){
+        Product product = productRepository.getById(id);
+        product.setName(request.getName());
+        product.setPrice(request.getPrice());
+        product.setDescription(request.getDescription());
+        product.setUpdateBy(request.getUpdateBy());
         // Xử lý trường idBrand có thể là null
         if (request.getIdBrand() != null) {
-            productDetail.setBrand(Brand.builder().id(request.getIdBrand()).build());
+            product.setBrand(Brand.builder().id(request.getIdBrand()).build());
         } else {
-            productDetail.setBrand(null);
+            product.setBrand(null);
         }
-        productDetail.setCategory(Category.builder().id(request.getIdCategory()).build());
+        product.setCategory(Category.builder().id(request.getIdCategory()).build());
         // Xử lý trường idDesign có thể là null
         if (request.getIdDesign() != null) {
-            productDetail.setDesign(Design.builder().id(request.getIdDesign()).build());
+            product.setDesign(Design.builder().id(request.getIdDesign()).build());
         } else {
-            productDetail.setDesign(null);
+            product.setDesign(null);
         }
-        productDetail.setHandType(HandType.builder().id(request.getIdHandType()).build());
-        productDetail.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
+        product.setHandType(HandType.builder().id(request.getIdHandType()).build());
+        product.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
         // Xử lý trường idPromotion có thể là null
         if (request.getIdPromotion() != null) {
-            productDetail.setPromotion(Promotion.builder().id(request.getIdPromotion()).build());
+            product.setPromotion(Promotion.builder().id(request.getIdPromotion()).build());
         } else {
-            productDetail.setPromotion(null);
+            product.setPromotion(null);
         }
-        productDetail.setUpdateDate(new Date());
-        return productDetailRepository.save(productDetail);
+        product.setUpdateDate(new Date());
+        return productRepository.save(product);
     }
 
-    public ProductDetail delete(Integer IdProductDetail){
-        ProductDetail p = productDetailRepository.getById(IdProductDetail);
+    public Product delete(Integer IdProduct){
+        Product p = productRepository.getById(IdProduct);
         p.setStatus(1);
-        return productDetailRepository.save(p);
+        return productRepository.save(p);
     }
 
-    public ProductDetail khoiphucDelete(Integer IdProductDetail){
-        ProductDetail p = productDetailRepository.getById(IdProductDetail);
+    public Product khoiphucDelete(Integer IdProduct){
+        Product p = productRepository.getById(IdProduct);
         p.setStatus(0);
-        return productDetailRepository.save(p);
+        return productRepository.save(p);
     }
 
-    public ProductDetail getByCode(String code){
-        return productDetailRepository.getByCode(code);
+    public Product getByCode(String code){
+        return productRepository.getByCode(code);
     }
 
     public String genCode() {
@@ -162,25 +162,7 @@ public class ProductDetailService {
         return code;
     }
 
-    public Product addProduct(ProductDetailReq request){
-        Product product = new Product();
-        product.setCode(genCode());
-        product.setName(request.getName());
-        product.setCreateBy(request.getCreateBy());
-        product.setCreateDate(new Date());
-        product.setStatus(0);
-        return productRepository.save(product);
-    }
-
-    public Product updateProduct(Integer id, ProductDetailReq request){
-        Product product = productRepository.getById(id);
-        product.setName(request.getName());
-        product.setUpdateBy(request.getUpdateBy());
-        product.setUpdateDate(new Date());
-        return productRepository.save(product);
-    }
-
-    public ProductImage addImage(ProductDetailReq image){
+    public ProductImage addImage(ProductReq image){
         ProductImage productImage = new ProductImage();
         productImage.setUrl(image.getUrl());
         productImage.setMainImage(image.getMainImage());
@@ -202,14 +184,14 @@ public class ProductDetailService {
         }
     }
 
-    public List<ProductDetail> getAllbyFilter(
+    public List<Product> getAllbyFilter(
             Integer IdColor,Integer IdSize,Integer IdMaterial,
             Integer IdCategory, Integer IdBrand , Integer IdHandType,
             Integer IdNeckType, Integer IdDesign,Integer IdPromotion,
             Double min ,Double max ,
             Integer soLuong,Integer soLuong1
     ){
-        return productDetailRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,IdPromotion,min,max,soLuong,soLuong1);
+        return productRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,IdPromotion,min,max,soLuong,soLuong1);
     }
 
     public void importExel(MultipartFile file) throws IOException {
@@ -241,6 +223,13 @@ public class ProductDetailService {
                     Product product = new Product();
                     product.setCode(code);
                     product.setName(name);
+                    product.setPrice(BigDecimal.valueOf(price));
+                    product.setDescription(description);
+                    product.setCategory(Category.builder().id(idcate).build());
+                    product.setBrand(Brand.builder().id(idbrand).build());
+                    product.setDesign(Design.builder().id(iddesign).build());
+                    product.setHandType(HandType.builder().id(idhandtype).build());
+                    product.setNeckType(NeckType.builder().id(idnecktype).build());
                     product.setStatus(0);
                     product.setCreateDate(new Date());
                     productRepository.save(product);
@@ -250,28 +239,17 @@ public class ProductDetailService {
                     productImage.setUrl(url);
                     productImage.setProduct(Product.builder().id(product.getId()).build());
                     productImageRepository.save(productImage);
-                    ProductDetail productDetail = new ProductDetail();
-                    productDetail.setPrice(BigDecimal.valueOf(price));
-                    productDetail.setDescription(description);
-                    productDetail.setProduct(Product.builder().id(product.getId()).build());
-                    productDetail.setCategory(Category.builder().id(idcate).build());
-                    productDetail.setBrand(Brand.builder().id(idbrand).build());
-                    productDetail.setDesign(Design.builder().id(iddesign).build());
-                    productDetail.setHandType(HandType.builder().id(idhandtype).build());
-                    productDetail.setNeckType(NeckType.builder().id(idnecktype).build());
-                    productDetail.setStatus(0);
-                    productDetail.setCreateDate(new Date());
-                    productDetailRepository.save(productDetail);
+
                     for (String material:mate) {
                         ProductdetailMaterial productdetailMaterial = new ProductdetailMaterial();
-                        productdetailMaterial.setProductDetail(ProductDetail.builder().id(productDetail.getId()).build());
+                        productdetailMaterial.setProduct(Product.builder().id(product.getId()).build());
                         productdetailMaterial.setMaterial(Material.builder().id(Integer.parseInt(material)).build());
                         productDetailMaterialRepository.save(productdetailMaterial);
                     }
                     for (String color_size_quantity :color_size) {
                         String [] mang = color_size_quantity.split("-");
                         ProductdetailColorSize productdetailColorSize = new ProductdetailColorSize();
-                        productdetailColorSize.setProductDetail(ProductDetail.builder().id(productDetail.getId()).build());
+                        productdetailColorSize.setProduct(Product.builder().id(product.getId()).build());
                         productdetailColorSize.setSize(Size.builder().id(Integer.parseInt(mang[1])).build());
                         productdetailColorSize.setColor(Color.builder().id(Integer.parseInt(mang[0])).build());
                         productdetailColorSize.setQuantity(Integer.parseInt(mang[2]));

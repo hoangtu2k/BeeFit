@@ -24,9 +24,9 @@ public class ProductdetailColorSize implements Serializable {
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "IdProductDetail")
+    @JoinColumn(name = "IdProduct")
     @JsonBackReference
-    private ProductDetail productDetail;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "IdColor")
