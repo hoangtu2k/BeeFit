@@ -1,7 +1,7 @@
 package com.spring.beefit.rest;
 
 import com.spring.beefit.service.ProductDetailColorSizeService;
-import com.spring.beefit.viewmodel.request.ProductDetailReq;
+import com.spring.beefit.viewmodel.request.ProductReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class ProductDetail_Color_SizeRest {
     private ProductDetailColorSizeService service;
 
     @PostMapping()
-    public ResponseEntity<?> add(@RequestBody ProductDetailReq request){
+    public ResponseEntity<?> add(@RequestBody ProductReq request){
         return ResponseEntity.ok(service.add(request));
     }
 

@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 @Getter
 @Setter
-public class ProductDetailReq {
+public class ProductReq {
 
     private String Code;
     private String Name;
@@ -25,7 +24,6 @@ public class ProductDetailReq {
     private Integer IdPromotion;
     private String Url;
     private Boolean MainImage;
-    private Integer IdProductDetail;
     private Integer IdSize;
     private Integer IdColor;
     private Integer Quantity;
