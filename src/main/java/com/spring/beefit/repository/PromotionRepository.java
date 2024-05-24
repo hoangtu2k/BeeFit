@@ -21,7 +21,7 @@ public interface PromotionRepository extends JpaRepository<Promotion, Integer> {
     @Query(value = "select e from Promotion e where e.id = :id")
     Promotion getById(@Param("id") Integer id);
 
-    @Query(value = "SELECT * FROM Promotion WHERE EndDate >= GETDATE() AND Status = 0 Order by e.createDate desc", nativeQuery = true)
+    @Query(value = "SELECT * FROM Promotion WHERE EndDate >= GETDATE() AND Status = 0", nativeQuery = true)
     List<Promotion> getByEndDateAll();
 
     @Query("Select e from Promotion  e where e.code = :code")

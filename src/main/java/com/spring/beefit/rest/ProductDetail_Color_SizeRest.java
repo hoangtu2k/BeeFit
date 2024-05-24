@@ -24,4 +24,5 @@ public class ProductDetail_Color_SizeRest {
         return ResponseEntity.ok("ok");
     }
 
+
 }

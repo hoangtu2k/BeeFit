@@ -24,11 +24,18 @@ public class ProductDetailColorSizeService {
     @Autowired
     private ProductDetailColorSizeRepository productDetailColorSizeRepository;
 
+    // size repo
     public List<Size> getAllSizes() {
         return sizeRepository.getAll();
     }
+
+    // color repo
     public List<Color> getAllColors() {
         return colorRepository.getAll();
+    }
+
+    public List<Integer> getColorByProduct(Integer Id){
+        return colorRepository.getColorByProduct(Id);
     }
 
     public ProductdetailColorSize add(ProductReq request){
