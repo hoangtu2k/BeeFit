@@ -53,28 +53,15 @@ Create table HandType(
 										 UpdateBy VARCHAR(30),
 										 Status INT
 )
--- Create Promotion
-Create table Promotion (
-                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Code VARCHAR(30),
-										 Name NVARCHAR(100),
-									 	 DiscountType BIT,
-										 Discount INT ,
-										 Cash MONEY,
-										 StartDate DATETIME,
-										 EndDate DATETIME,
-										 CreateDate DATETIME,
-									     UpdateDate DATETIME,
-									     CreateBy VARCHAR(30),
-									     UpdateBy VARCHAR(30),
-										 Status INT																	 
-)
 -- Create Product
 Create table Product(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30),
 										 Name NVARCHAR(100),
+										 Weight FLOAT,
 										 Price MONEY,
+										 Discount INT ,
+										 DiscountDate DATETIME,
 									     Description NVARCHAR(255),							 
 									     CreateDate DATETIME,
 									     UpdateDate DATETIME,
@@ -86,7 +73,6 @@ Create table Product(
 										 IdNeckType INT FOREIGN KEY REFERENCES NeckType(Id),
 										 IdHandType INT FOREIGN KEY REFERENCES HandType(Id),
 									     IdDesign INT FOREIGN KEY REFERENCES Design(Id),
-									     IdPromotion INT FOREIGN KEY REFERENCES Promotion(Id),
 )
 -- Create ProductImage
 Create table ProductImage(
@@ -192,7 +178,6 @@ Create table Customer(
 										 UpdateBy VARCHAR(30),
 										 Status INT,
 )
-
 Create table Voucher(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Idvoucher VARCHAR(30),
@@ -212,6 +197,9 @@ Create table Address(
 									 	 CityName NVARCHAR(100),
 										 DistrictName NVARCHAR(100),
 										 WardName NVARCHAR(100),
+										 CityId INT,
+										 DistrictId INT ,
+										 WardId INT,
 										 CreateDate DATETIME,
 										 UpdateDate DATETIME,
 										 CreateBy VARCHAR(30),
@@ -235,6 +223,7 @@ Create table Bill(
 										 TypeStatus INT,									 
 										 Status INT,
 										 CodeGHN VARCHAR(30),
+										 IdCoupon INT,
 										 IdAddress INT FOREIGN KEY REFERENCES Address(Id),
 										 IdCustomer INT FOREIGN KEY REFERENCES Customer(Id),
 										 IdVoucher INT FOREIGN KEY REFERENCES Voucher(Id),
@@ -265,25 +254,31 @@ Create table Cart(
 )
 Create table CartDetail(
 								         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+										 UnitPrice MONEY,
 								         Quantity INT,
 								         IdColor INT,
 								         IdSize INT,
 								         IdCart INT FOREIGN KEY REFERENCES Cart(Id),
 								         IdProduct INT FOREIGN KEY REFERENCES Product(Id)
 )
-Create table Background(
+Create table Rating(
 									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-									     Type VARCHAR(30),
-									     Url VARCHAR(255),
-									     Content NVARCHAR(255),
+									     Score INT,
+									     Note nvarchar(255),
 									     CreateDate DATETIME,
 									     UpdateDate DATETIME,
 									     CreateBy VARCHAR(30),
 									     UpdateBy VARCHAR(30),
-									     Status INT
+									     Status INT,
+									     IdProduct INT FOREIGN KEY REFERENCES Product(Id),
+									     IdCustomer INT FOREIGN KEY REFERENCES Customer(Id)
+
 )
-
-
+Create table RatingImage(
+                                         Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+                                         Url VARCHAR(255),
+                                         IdRating INT FOREIGN KEY REFERENCES Rating(Id)
+)
 -- Create Coupon
 Create table Coupon(
 									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -301,23 +296,20 @@ Create table Coupon(
 									     Status INT,
 										 IdOrder INT FOREIGN KEY REFERENCES Bill(Id)
 )
--- Create Customer
-Create table Customer_Coupon(
-										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 IdCustomer INT FOREIGN KEY REFERENCES Customer(Id),
-										 IdCoupon INT FOREIGN KEY REFERENCES Coupon(Id),
-										 CreateDate DATETIME,
-										 UpdateDate DATETIME,
-										 CreateBy VARCHAR(30),
-										 UpdateBy VARCHAR(30),
-										 Status INT,										 
+Create table Background(
+									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+									     Type VARCHAR(30),
+									     Url VARCHAR(255),
+									     Content NVARCHAR(255),
+									     CreateDate DATETIME,
+									     UpdateDate DATETIME,
+									     CreateBy VARCHAR(30),
+									     UpdateBy VARCHAR(30),
+									     Status INT
 )
 
 
 ------------------------------------- Inser into product start ------------------------------------------
--- Thêm dữ liệu vào bảng "Promontion"
-INSERT INTO Promotion( Code, Name, DiscountType , Discount, Cash , StartDate,EndDate,CreateDate,UpdateDate,CreateBy,UpdateBy,Status)
-VALUES ( 'PRO001',N'Mừng quốc khánh 2/9', 1 , 20 , 20 , GETDATE() , '2024-10-01 00:00:00.000' ,GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 -- Thêm dữ liệu vào bảng "Category"
 INSERT INTO Category(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
 VALUES (N'Áo thun tay ngắn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
@@ -382,4 +374,8 @@ VALUES ('Admin',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 INSERT INTO Employee (Code, Fullname, Username, Password, Image, Gender, Phone, Email, CreateDate, UpdateDate, CreateBy, UpdateBy, status, IdRole)
 VALUES ('NV01', 'John Doe staff', 'staff', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 2),
 	   ('NV02', 'John Doe admin', 'admin', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 1);
+
+-- Thêm dữ liệu vào bảng "customer"
+INSERT INTO Customer (Code, Fullname, Username, Password, Image, Gender, Phone, Email, CreateDate, UpdateDate, CreateBy, UpdateBy, status)
+VALUES ('NV01', 'Customer', 'sa', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 

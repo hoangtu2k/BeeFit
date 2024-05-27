@@ -1,5 +1,6 @@
 package com.spring.beefit.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -33,6 +34,17 @@ public class Product implements Serializable {
     @Column(name = "Price")
     private BigDecimal price;
 
+    @Column(name = "Weight")
+    private Double weight;
+
+    @Column(name = "Discount")
+    private Integer discount;
+
+    @Column(name = "DiscountDate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date discountDate;
+
     @Column(name = "Description")
     private String description;
 
@@ -52,7 +64,6 @@ public class Product implements Serializable {
     @Column(name = "UpdateBy")
     private String updateBy;
 
-    @ColumnDefault("0")
     @Column(name = "Status")
     private Integer status;
 
@@ -76,10 +87,6 @@ public class Product implements Serializable {
     @JoinColumn(name = "IdNeckType")
     private NeckType neckType;
 
-    @ManyToOne
-    @JoinColumn(name = "IdPromotion")
-    private Promotion promotion;
-
     @OneToMany(mappedBy = "product")
     private Set<ProductdetailMaterial> productDetail_materials = new HashSet<ProductdetailMaterial>();
 
@@ -89,5 +96,11 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product")
     private Set<ProductImage> productImages = new HashSet<ProductImage>();
 
+    @OneToMany(mappedBy = "product")
+    private Set<Rating> ratings = new HashSet<Rating>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private Set<CartDetail> cartDetails = new HashSet<CartDetail>();
 
 }

@@ -63,7 +63,7 @@ public class AttributesProductRest {
         return ResponseEntity.ok(productDetailColorSizeService.getAllColors());
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/color/get/{id}")
     public ResponseEntity<?> getColorById(@PathVariable("id") Integer id){
         return ResponseEntity.ok(productDetailColorSizeService.getColorByProduct(id));
     }

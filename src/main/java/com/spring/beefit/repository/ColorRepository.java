@@ -16,10 +16,10 @@ public interface ColorRepository extends JpaRepository<Color, Integer> {
     @Query(value = "select e from Color e where e.id = :id")
     Color getById(@Param("id") Integer Id);
     @Query(value = "Select c.id from Color c\n" +
-            "join ProductdetailColorSize p on p.color.id = c.id \n" +
-            "join Product pd on pd.id = p.product.id \n" +
-            "where pd.id = :id \n" +
-            "Group by c.id")
+                    "join ProductdetailColorSize p on p.color.id = c.id \n" +
+                    "join Product pd on pd.id = p.product.id \n" +
+                    "where pd.id = :id \n" +
+                    "Group by c.id")
     List<Integer> getColorByProduct(@Param("id") Integer id);
 
 
