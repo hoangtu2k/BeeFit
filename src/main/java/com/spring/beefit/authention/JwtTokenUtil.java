@@ -10,7 +10,7 @@ import java.util.Date;
 public class JwtTokenUtil {
 
     private static final String SECRET_KEY = "concuakicuc";
-    private static final long EXPIRATION_TIME = 43_200_000; // 12 hours
+    private static final long EXPIRATION_TIME = 864_000_000; // 10 days
 
     // Tạo JWT
     public String generateToken(String username) {
@@ -31,6 +31,6 @@ public class JwtTokenUtil {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
-
     }
+
 }

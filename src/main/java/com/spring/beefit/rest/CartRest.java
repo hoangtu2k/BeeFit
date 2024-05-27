@@ -1,0 +1,53 @@
+package com.spring.beefit.rest;
+
+import com.spring.beefit.service.CartDetailService;
+import com.spring.beefit.viewmodel.request.CartDetailRequest;
+import com.spring.beefit.viewmodel.request.CartRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/cart")
+public class CartRest {
+
+    @Autowired
+    private CartDetailService service;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCartByCustomer(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.getCartByCustomer(id));
+    }
+    @GetMapping("/getQuantityByCartDetail/{id}")
+    public ResponseEntity<?> getQuantityByCartDetail(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.getQuantityByCartDetail(id));
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteToCart(@PathVariable("id") Integer id){
+        service.deleteToCart(id);
+        return ResponseEntity.ok("ok");
+    }
+    @DeleteMapping("/deleteAllCart/{id}")
+    public ResponseEntity<?> deleteAllCart(@PathVariable("id") Integer id){
+        service.deleteAllCart(id);
+        return ResponseEntity.ok("ok");
+    }
+    @PostMapping
+    public ResponseEntity<?> addToCart(@RequestBody CartDetailRequest cartDetail){
+        return ResponseEntity.ok(service.addToCart(cartDetail));
+    }
+    @PutMapping("/updateCart/{id}")
+    public ResponseEntity<?> updateToCart(@RequestBody CartDetailRequest cartDetail, @PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.updateToCart(cartDetail,id));
+    }
+    @GetMapping("/getCartByCustomer/{id}")
+    public ResponseEntity<?> getCartByIdCustomer(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.getByIdCustomer(id));
+    }
+    @PostMapping("/addCart")
+    public ResponseEntity<?> addCart(@RequestBody CartRequest request){
+        return ResponseEntity.ok(service.addCart(request));
+    }
+
+
+}

@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
-public class ProductlRest {
+public class ProductRest {
 
     @Autowired
     private ProductDetailService service;
@@ -110,12 +110,11 @@ public class ProductlRest {
             @RequestParam(name = "idhandtype",required = false) Integer IdHandType,
             @RequestParam(name = "idnecktype",required = false) Integer IdNeckType,
             @RequestParam(name = "iddesign",required = false) Integer IdDesign,
-            @RequestParam(name = "idpromotion",required = false) Integer IdPromotion,
             @RequestParam("min") Double min,
             @RequestParam("max") Double max,
             @RequestParam(name = "soLuong",required = false) Integer soLuong,
             @RequestParam(name = "soLuong1",required = false) Integer soLuong1){
-        return ResponseEntity.ok(service.getAllbyFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand,IdHandType,IdNeckType,IdDesign,IdPromotion,min,max,soLuong,soLuong1));
+        return ResponseEntity.ok(service.getAllbyFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand,IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1));
     }
 
 }

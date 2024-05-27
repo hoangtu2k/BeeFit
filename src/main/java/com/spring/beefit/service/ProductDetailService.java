@@ -80,6 +80,9 @@ public class ProductDetailService {
         product.setCode(genCode());
         product.setName(request.getName());
         product.setPrice(request.getPrice());
+        product.setWeight(request.getWeight());
+        product.setDiscount(request.getDiscount());
+        product.setDiscountDate(request.getDiscountDate());
         product.setDescription(request.getDescription());
         product.setCreateBy(request.getCreateBy());
         // Xử lý trường idBrand có thể là null
@@ -97,12 +100,6 @@ public class ProductDetailService {
         }
         product.setHandType(HandType.builder().id(request.getIdHandType()).build());
         product.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
-        // Xử lý trường idPromotion có thể là null
-        if (request.getIdPromotion() != null) {
-            product.setPromotion(Promotion.builder().id(request.getIdPromotion()).build());
-        } else {
-            product.setPromotion(null);
-        }
         product.setCreateDate(new Date());
         product.setStatus(0);
         return productRepository.save(product);
@@ -112,6 +109,9 @@ public class ProductDetailService {
         Product product = productRepository.getById(id);
         product.setName(request.getName());
         product.setPrice(request.getPrice());
+        product.setWeight(request.getWeight());
+        product.setDiscount(request.getDiscount());
+        product.setDiscountDate(request.getDiscountDate());
         product.setDescription(request.getDescription());
         product.setUpdateBy(request.getUpdateBy());
         // Xử lý trường idBrand có thể là null
@@ -129,12 +129,6 @@ public class ProductDetailService {
         }
         product.setHandType(HandType.builder().id(request.getIdHandType()).build());
         product.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
-        // Xử lý trường idPromotion có thể là null
-        if (request.getIdPromotion() != null) {
-            product.setPromotion(Promotion.builder().id(request.getIdPromotion()).build());
-        } else {
-            product.setPromotion(null);
-        }
         product.setUpdateDate(new Date());
         return productRepository.save(product);
     }
@@ -187,11 +181,11 @@ public class ProductDetailService {
     public List<Product> getAllbyFilter(
             Integer IdColor,Integer IdSize,Integer IdMaterial,
             Integer IdCategory, Integer IdBrand , Integer IdHandType,
-            Integer IdNeckType, Integer IdDesign,Integer IdPromotion,
+            Integer IdNeckType, Integer IdDesign,
             Double min ,Double max ,
             Integer soLuong,Integer soLuong1
     ){
-        return productRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,IdPromotion,min,max,soLuong,soLuong1);
+        return productRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1);
     }
 
     public void importExel(MultipartFile file) throws IOException {

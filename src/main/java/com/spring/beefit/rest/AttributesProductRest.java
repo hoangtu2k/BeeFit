@@ -6,6 +6,7 @@ import com.spring.beefit.service.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,5 +63,9 @@ public class AttributesProductRest {
         return ResponseEntity.ok(productDetailColorSizeService.getAllColors());
     }
 
+    @GetMapping("/color/get/{id}")
+    public ResponseEntity<?> getColorById(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(productDetailColorSizeService.getColorByProduct(id));
+    }
 
 }
