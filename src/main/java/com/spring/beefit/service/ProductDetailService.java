@@ -181,11 +181,11 @@ public class ProductDetailService {
     public List<Product> getAllbyFilter(
             Integer IdColor,Integer IdSize,Integer IdMaterial,
             Integer IdCategory, Integer IdBrand , Integer IdHandType,
-            Integer IdNeckType, Integer IdDesign,Integer IdPromotion,
+            Integer IdNeckType, Integer IdDesign,
             Double min ,Double max ,
             Integer soLuong,Integer soLuong1
     ){
-        return productRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,IdPromotion,min,max,soLuong,soLuong1);
+        return productRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1);
     }
 
     public void importExel(MultipartFile file) throws IOException {
