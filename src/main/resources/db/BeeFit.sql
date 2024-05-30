@@ -62,7 +62,7 @@ Create table Product(
 										 Price MONEY,
 										 Discount INT ,
 										 DiscountDate DATETIME,
-									     Description NVARCHAR(255),							 
+									     Description NVARCHAR(MAX),
 									     CreateDate DATETIME,
 									     UpdateDate DATETIME,
 									     CreateBy VARCHAR(30),
@@ -378,4 +378,9 @@ VALUES ('NV01', 'John Doe staff', 'staff', '123456', 'Image URL', 1, '0123456789
 -- Thêm dữ liệu vào bảng "customer"
 INSERT INTO Customer (Code, Fullname, Username, Password, Image, Gender, Phone, Email, CreateDate, UpdateDate, CreateBy, UpdateBy, status)
 VALUES ('NV01', 'Customer', 'sa', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "cart"
+INSERT INTO Cart (IdCustomer) 
+VALUES (1);
+
 

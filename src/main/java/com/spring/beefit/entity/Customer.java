@@ -1,11 +1,15 @@
 package com.spring.beefit.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -62,5 +66,18 @@ public class Customer implements Serializable {
 
     @Column(name = "Status")
     private Integer status;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "customer")
+    private Set<Coupon> coupons = new HashSet<Coupon>();
+    @JsonBackReference
+    @OneToMany(mappedBy = "customer")
+    private Set<Address> addresses = new HashSet<Address>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private Set<Bill> bills = new HashSet<Bill>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private Set<Rating> ratings = new HashSet<Rating>();
 
 }

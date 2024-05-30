@@ -18,8 +18,10 @@ public class CartDetailService {
 
     @Autowired
     private CartDetailRepository repository;
+
     @Autowired
     private CartRepository cartRepository;
+
     public List<CartDetail> getCartByCustomer(Integer Id){
         return repository.getCartByCustomer(Id);
     }

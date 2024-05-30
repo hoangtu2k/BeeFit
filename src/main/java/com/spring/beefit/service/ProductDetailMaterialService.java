@@ -24,6 +24,10 @@ public class ProductDetailMaterialService {
         return materialRepository.getAll();
     }
 
+    public List<Integer> getMaterialByProduct(Integer Id){
+        return materialRepository.getMaterialByProduct(Id);
+    }
+
     public ProductdetailMaterial add(ProductReq request){
         ProductdetailMaterial productdetailMaterial = new ProductdetailMaterial();
         productdetailMaterial.setProduct(Product.builder().id(request.getIdProduct()).build());
