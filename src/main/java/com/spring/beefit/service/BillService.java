@@ -19,19 +19,31 @@ import java.util.List;
 
 @Service
 public class BillService {
+
     @Autowired
     private BillRepository repository;
 
-    public String genCode(){
-        // Tạo đối tượng Random
-        long timestamp = Instant.now().getEpochSecond();
-        String code = "HD" + timestamp;
-    return code;
+//    public String genCode(){
+//        // Tạo đối tượng Random
+//        long timestamp = Instant.now().getEpochSecond();
+//        String code = "HD" + timestamp;
+//        return code;
+//    }
+
+    private String getNextMa() {
+        String biggestMa = repository.getBiggestMa();
+        if (biggestMa == null || biggestMa.isEmpty()) {
+            return "HD01";
+        } else {
+            int currentMa = Integer.parseInt(biggestMa.substring(2));
+            String newMa = "HD" + String.format("%02d", ++currentMa);
+            return newMa;
+        }
     }
 
     public Bill add(BillRequest request){
         Bill bill = new Bill();
-        bill.setCode(genCode());
+        bill.setCode(getNextMa());
         bill.setPurchaseDate(new Date());
         bill.setNote(request.getNote());
         bill.setShipPrice(request.getShipPrice());
@@ -141,7 +153,7 @@ public class BillService {
     }
     public Bill addBillTaiQuay(BillTaiQuayRequest request){
         Bill bill = new Bill();
-        bill.setCode(genCode());
+        bill.setCode(getNextMa());
         bill.setPurchaseDate(new Date());
         bill.setTypeStatus(request.getTypeStatus());
         bill.setStatus(request.getStatus());
