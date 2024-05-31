@@ -52,6 +52,10 @@ public class AttributesProductRest {
     public ResponseEntity<?> getAllMaterials(){
         return ResponseEntity.ok(productDetailMaterialService.getAllMaterials());
     }
+    @GetMapping("/material/get/{id}")
+    public ResponseEntity<?> getMaterialById(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(productDetailMaterialService.getMaterialByProduct(id));
+    }
 
     @GetMapping("/size")
     public ResponseEntity<?> getAllSizes(){

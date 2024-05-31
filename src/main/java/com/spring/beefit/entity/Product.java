@@ -101,6 +101,10 @@ public class Product implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "product")
+    private Set<BillDetail> billDetails = new HashSet<BillDetail>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
     private Set<CartDetail> cartDetails = new HashSet<CartDetail>();
 
 }

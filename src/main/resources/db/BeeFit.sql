@@ -62,7 +62,7 @@ Create table Product(
 										 Price MONEY,
 										 Discount INT ,
 										 DiscountDate DATETIME,
-									     Description NVARCHAR(255),							 
+									     Description NVARCHAR(MAX),
 									     CreateDate DATETIME,
 									     UpdateDate DATETIME,
 									     CreateBy VARCHAR(30),
@@ -236,7 +236,7 @@ Create table BillDetail(
 										 IdColor INT,
 										 IdSize INT,
 										 IdOrder INT FOREIGN KEY REFERENCES Bill(Id),
-										 IdProduct INT FOREIGN KEY REFERENCES Product(Id)
+                                         IdProduct INT FOREIGN KEY REFERENCES Product(Id)
 )
 Create table BillHistory(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -284,9 +284,9 @@ Create table Coupon(
 									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 									     Code VARCHAR(30),
 									     Name NVARCHAR(100),
-									     MinValue INT,
-										 MaxValue INT,
-										 Quantity INT,
+									     IsType INT,
+										 Discount INT,
+										 Cash MONEY,
 										 StartDate DATETIME,
 										 EndDate DATETIME,	
 									     CreateDate DATETIME,
@@ -294,7 +294,7 @@ Create table Coupon(
 										 CreateBy VARCHAR(30),
 										 UpdateBy VARCHAR(30),
 									     Status INT,
-										 IdOrder INT FOREIGN KEY REFERENCES Bill(Id)
+										 IdCustomer INT FOREIGN KEY REFERENCES Customer(Id)
 )
 Create table Background(
 									     Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -378,4 +378,9 @@ VALUES ('NV01', 'John Doe staff', 'staff', '123456', 'Image URL', 1, '0123456789
 -- Thêm dữ liệu vào bảng "customer"
 INSERT INTO Customer (Code, Fullname, Username, Password, Image, Gender, Phone, Email, CreateDate, UpdateDate, CreateBy, UpdateBy, status)
 VALUES ('NV01', 'Customer', 'sa', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+
+-- Thêm dữ liệu vào bảng "cart"
+INSERT INTO Cart (IdCustomer) 
+VALUES (1);
+
 
