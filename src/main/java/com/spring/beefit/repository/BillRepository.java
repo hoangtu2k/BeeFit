@@ -13,8 +13,7 @@ import java.util.List;
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Integer> {
 
-    @Query(value = "SELECT Code FROM Bill b WHERE CAST(b.PurchaseDate AS DATE) = CONVERT(DATE, GETDATE()) \n" +
-            "ORDER BY LEN(b.Code) DESC, b.Code DESC OFFSET 0 ROW FETCH NEXT 1 ROW ONLY", nativeQuery = true)
+    @Query(value = "SELECT Code FROM Bill b ORDER BY LEN(b.Code) DESC, b.Code DESC OFFSET 0 ROW FETCH NEXT 1 ROW ONLY", nativeQuery = true)
     String getBiggestMa();
 
     @Query(value = "select  e from Bill e where e.code = :code")
