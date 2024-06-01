@@ -23,6 +23,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Query("Select e from Product  e where e.code = :code")
     Product getByCode(@Param("code") String code);
 
+    @Query(value = "Select SUM(b.quantity) from BillDetail b \n" +
+            "join Bill  c on c.id = b.bill.id \n" +
+            "where b.product.id = :id and c.status = 3")
+    Integer quantitySold(@Param("id") Integer id);
+    @Query(value = "Select SUM (b.quantity * b.unitPrice) from BillDetail b \n" +
+            "join Bill  c on c.id = b.bill.id \n" +
+            "where b.product.id = :id and c.status = 3")
+    Double totalSale(@Param("id") Integer id);
 
 
 

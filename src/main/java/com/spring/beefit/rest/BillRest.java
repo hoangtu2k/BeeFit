@@ -150,5 +150,9 @@ public class BillRest {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
+    @GetMapping("/getallbyproduct/{id}")
+    public ResponseEntity<?> getallbyproduct(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(billDetailService.getAllByIdProduct(id));
+    }
 
 }

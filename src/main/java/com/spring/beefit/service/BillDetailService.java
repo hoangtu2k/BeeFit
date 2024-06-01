@@ -5,6 +5,7 @@ import com.spring.beefit.entity.BillDetail;
 import com.spring.beefit.entity.Product;
 import com.spring.beefit.repository.BillDetailRepository;
 import com.spring.beefit.viewmodel.request.BillDetailRequest;
+import com.spring.beefit.viewmodel.response.BillDaBanResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +52,10 @@ public class BillDetailService {
     public BillDetail getById(Integer id){
         BillDetail billDetail = repository.getById(id);
         return billDetail;
+    }
+
+    public List<BillDaBanResponse> getAllByIdProduct(Integer id){
+        return repository.getAllByIdProduct(id);
     }
 
 

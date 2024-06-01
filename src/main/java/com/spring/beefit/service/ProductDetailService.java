@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -68,6 +69,13 @@ public class ProductDetailService {
 
     public List<Product> getAll1() {
         return productRepository.getAll1();
+    }
+
+    public Integer quantitySold(@Param("id") Integer id){
+        return productRepository.quantitySold(id);
+    }
+    public Double totalSold(@Param("id") Integer id){
+        return productRepository.totalSale(id);
     }
 
     public Product getById(Integer id){
