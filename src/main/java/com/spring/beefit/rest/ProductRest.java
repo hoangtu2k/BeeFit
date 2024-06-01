@@ -99,6 +99,15 @@ public class ProductRest {
         return ResponseEntity.ok(service.khoiphucDelete(id));
     }
 
+    @GetMapping("/quantitySold/{id}")
+    public ResponseEntity<?> quantitySold(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.quantitySold(id));
+    }
+    @GetMapping("/totalSold/{id}")
+    public ResponseEntity<?> totalSold(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.totalSold(id));
+    }
+
 
     @GetMapping("/filter")
     public ResponseEntity<?> getAllByFilter(
