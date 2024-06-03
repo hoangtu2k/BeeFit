@@ -180,14 +180,14 @@ Create table Customer(
 )
 Create table Voucher(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
-										 Idvoucher VARCHAR(30),
+										 Code VARCHAR(30),
 										 Name NVARCHAR(100),
-										 DiscountType BIT,
+										 TypeVoucher BIT,
 										 Discount INT,
-										 Price MONEY,
+										 Cash MONEY,
 										 StartDate DATETIME,
 										 EndDate DATETIME,			
-										 Quantity INT
+										 Quantity INT,
 )
 Create table Address(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
