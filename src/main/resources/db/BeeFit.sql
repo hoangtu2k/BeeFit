@@ -188,7 +188,6 @@ Create table Voucher(
 										 StartDate DATETIME,
 										 EndDate DATETIME,			
 										 Quantity INT,
-										 Status INT,
 )
 Create table Address(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
