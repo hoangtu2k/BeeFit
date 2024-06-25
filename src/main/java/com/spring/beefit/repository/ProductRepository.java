@@ -40,7 +40,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 
     // filter
-    @Query(value = "Select e.Id,e.Code,e.Name,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdBrand,e.IdHandType,e.IdNeckType,e.IdCategory,e.IdDesign \n" +
+    @Query(value = "Select e.Id,e.Code,e.Name,e.Weight,e.Discount,e.DiscountDate ,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdBrand,e.IdHandType,e.IdNeckType,e.IdCategory,e.IdDesign \n" +
             "from Product e " +
             "\tjoin ProductDetail_Material m on m.IdProduct = e.Id\n" +
             "\tjoin Material ma on ma.Id = m.IdMaterial\n" +
@@ -61,7 +61,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "       from ProductDetail_Color_Size\n" +
             "group by IdProduct\n" +
             "       having SUM(Quantity) < 1 AND SUM(Quantity) > :soLuong1 OR :soLuong IS NULL)\n" +
-            "group by e.Id,e.Code,e.Name,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdBrand,e.IdCategory,e.IdHandType,e.IdNeckType,e.IdDesign\n" +
+            "group by e.Id,e.Code,e.Name,e.Weight,e.Discount,e.DiscountDate,e.Price,e.Description,e.CreateDate,e.UpdateDate,e.CreateBy,e.UpdateBy,e.Status,e.IdBrand,e.IdCategory,e.IdHandType,e.IdNeckType,e.IdDesign\n" +
             "           order by e.createDate desc\n" +
             "        ",nativeQuery = true)
     List<Product> getAllByFilter(
