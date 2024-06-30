@@ -1,17 +1,16 @@
 package com.spring.beefit.service;
 
-import com.spring.beefit.entity.Color;
-import com.spring.beefit.entity.Product;
-import com.spring.beefit.entity.ProductdetailColorSize;
-import com.spring.beefit.entity.Size;
+import com.spring.beefit.entity.*;
 import com.spring.beefit.repository.ColorRepository;
 import com.spring.beefit.repository.ProductDetailColorSizeRepository;
 import com.spring.beefit.repository.SizeRepository;
+import com.spring.beefit.viewmodel.request.AttributesRequest;
 import com.spring.beefit.viewmodel.request.ProductReq;
 import com.spring.beefit.viewmodel.response.ProductDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -25,15 +24,44 @@ public class ProductDetailColorSizeService {
     @Autowired
     private ProductDetailColorSizeRepository productDetailColorSizeRepository;
 
-    // size repo
+    // get all color and size repo
     public List<Size> getAllSizes() {
         return sizeRepository.getAll();
     }
 
-    // color repo
     public List<Color> getAllColors() {
         return colorRepository.getAll();
     }
+
+    // add color and size
+    public Color addColor(AttributesRequest request){
+        Color color = new Color();
+        color.setName(request.getName());
+        color.setCreateDate(new Date());
+        color.setStatus(0);
+        return colorRepository.save(color);
+    }
+    public Size addSize(AttributesRequest request){
+        Size size = new Size();
+        size.setName(request.getName());
+        size.setCreateDate(new Date());
+        size.setStatus(0);
+        return sizeRepository.save(size);
+    }
+    // update color and size
+    public Color updateColor(Integer Id, AttributesRequest request){
+        Color color = colorRepository.getById(Id);
+        color.setName(request.getName());
+        color.setUpdateDate(new Date());
+        return colorRepository.save(color);
+    }
+    public Size updateSize(Integer Id, AttributesRequest request){
+        Size size = sizeRepository.getById(Id);
+        size.setName(request.getName());
+        size.setUpdateDate(new Date());
+        return sizeRepository.save(size);
+    }
+
 
     public List<Integer> getColorByProduct(Integer Id){
         return colorRepository.getColorByProduct(Id);

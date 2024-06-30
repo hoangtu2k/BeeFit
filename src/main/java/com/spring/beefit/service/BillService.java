@@ -23,13 +23,6 @@ public class BillService {
     @Autowired
     private BillRepository repository;
 
-//    public String genCode(){
-//        // Tạo đối tượng Random
-//        long timestamp = Instant.now().getEpochSecond();
-//        String code = "HD" + timestamp;
-//        return code;
-//    }
-
     private String getNextMa() {
         String biggestMa = repository.getBiggestMa();
         if (biggestMa == null || biggestMa.isEmpty()) {
@@ -84,13 +77,11 @@ public class BillService {
     }
     public Bill updateStatus(String code, UpdateThanhToanTaiQuay request){
         Bill bill = repository.getByCode(code);
-
         bill.setStatus(request.getStatus());
         bill.setDelyveryDate(request.getDeliveryDate());
         bill.setPayStatus(request.getPayStatus());
         bill.setPaymentDate(request.getPaymentDate());
         return repository.save(bill);
-
     }
     public List<BillResponse> getBillFilter(Integer status, Integer payStatus, Integer payType, Integer typeStatus, String tungay, String denngay ){
         return repository.getBillFilter(status,payStatus,payType,typeStatus,tungay,denngay);

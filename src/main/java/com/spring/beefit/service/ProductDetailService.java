@@ -2,6 +2,7 @@ package com.spring.beefit.service;
 
 import com.spring.beefit.entity.*;
 import com.spring.beefit.repository.*;
+import com.spring.beefit.viewmodel.request.AttributesRequest;
 import com.spring.beefit.viewmodel.request.ProductReq;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -58,31 +59,93 @@ public class ProductDetailService {
     public List<NeckType> getAllNeckTypes() {
         return neckTypeRepository.getAll();
     }
-
+    // add thuoc tinh san pham
+    public Design addDesign(AttributesRequest request){
+        Design design = new Design();
+        design.setName(request.getName());
+        design.setCreateDate(new Date());
+        design.setStatus(0);
+        return designRepository.save(design);
+    }
+    public Brand addBrand(AttributesRequest request){
+        Brand brand = new Brand();
+        brand.setName(request.getName());
+        brand.setCreateDate(new Date());
+        brand.setStatus(0);
+        return brandRepository.save(brand);
+    }
+    public Category addCategory(AttributesRequest request){
+        Category category = new Category();
+        category.setName(request.getName());
+        category.setCreateDate(new Date());
+        category.setStatus(0);
+        return categoryRepository.save(category);
+    }
+    public HandType addHandType(AttributesRequest request){
+        HandType handType = new HandType();
+        handType.setName(request.getName());
+        handType.setCreateDate(new Date());
+        handType.setStatus(0);
+        return handTypeRepository.save(handType);
+    }
+    public NeckType addNeckType(AttributesRequest request){
+        NeckType neckType = new NeckType();
+        neckType.setName(request.getName());
+        neckType.setCreateDate(new Date());
+        neckType.setStatus(0);
+        return neckTypeRepository.save(neckType);
+    }
+    // update thuoc tinh san pham
+    public Design updateDesign(Integer Id,AttributesRequest request){
+        Design design = designRepository.getById(Id);
+        design.setName(request.getName());
+        design.setUpdateDate(new Date());
+        return designRepository.save(design);
+    }
+    public Brand updateBrand(Integer Id,AttributesRequest request){
+        Brand brand = brandRepository.getById(Id);
+        brand.setName(request.getName());
+        brand.setUpdateDate(new Date());
+        return brandRepository.save(brand);
+    }
+    public Category updateCategory(Integer Id,AttributesRequest request){
+        Category category = categoryRepository.getById(Id);
+        category.setName(request.getName());
+        category.setUpdateDate(new Date());
+        return categoryRepository.save(category);
+    }
+    public HandType updateHandType(Integer Id,AttributesRequest request){
+        HandType handType = handTypeRepository.getById(Id);
+        handType.setName(request.getName());
+        handType.setUpdateDate(new Date());
+        return handTypeRepository.save(handType);
+    }
+    public NeckType updateNeckType(Integer Id,AttributesRequest request){
+        NeckType neckType = neckTypeRepository.getById(Id);
+        neckType.setName(request.getName());
+        neckType.setUpdateDate(new Date());
+        return neckTypeRepository.save(neckType);
+    }
+    ////////////////////////////////////////////////////////////////////////////////
     public List<Product> findAll() {
         return productRepository.findAll();
     }
-
     public List<Product> getAll() {
         return productRepository.getAll();
     }
-
     public List<Product> getAll1() {
         return productRepository.getAll1();
     }
-
     public Integer quantitySold(@Param("id") Integer id){
         return productRepository.quantitySold(id);
     }
     public Double totalSold(@Param("id") Integer id){
         return productRepository.totalSale(id);
     }
-
     public Product getById(Integer id){
         Product product = productRepository.getById(id);
         return product;
     }
-
     public Product addProduct(ProductReq request) {
         Product product = new Product();
         product.setCode(genCode());
@@ -112,7 +175,6 @@ public class ProductDetailService {
         product.setStatus(0);
         return productRepository.save(product);
     }
-
     public Product updateProduct(Integer id, ProductReq request){
         Product product = productRepository.getById(id);
         product.setName(request.getName());
@@ -140,30 +202,25 @@ public class ProductDetailService {
         product.setUpdateDate(new Date());
         return productRepository.save(product);
     }
-
     public Product delete(Integer IdProduct){
         Product p = productRepository.getById(IdProduct);
         p.setStatus(1);
         return productRepository.save(p);
     }
-
     public Product khoiphucDelete(Integer IdProduct){
         Product p = productRepository.getById(IdProduct);
         p.setStatus(0);
         return productRepository.save(p);
     }
-
     public Product getByCode(String code){
         return productRepository.getByCode(code);
     }
-
     public String genCode() {
         // Tạo đối tượng Random
         long timestamp = Instant.now().getEpochSecond();
         String code = "SP" + timestamp;
         return code;
     }
-
     public ProductImage addImage(ProductReq image){
         ProductImage productImage = new ProductImage();
         productImage.setUrl(image.getUrl());
@@ -185,17 +242,6 @@ public class ProductDetailService {
             productImageRepository.delete(p);
         }
     }
-
-    public List<Product> getAllbyFilter(
-            Integer IdColor,Integer IdSize,Integer IdMaterial,
-            Integer IdCategory, Integer IdBrand , Integer IdHandType,
-            Integer IdNeckType, Integer IdDesign,
-            Double min ,Double max ,
-            Integer soLuong,Integer soLuong1
-    ){
-        return productRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1);
-    }
-
     public void importExel(MultipartFile file) throws IOException {
         try(InputStream inputStream =  file.getInputStream()){
             Workbook workbook = new XSSFWorkbook(inputStream);
@@ -267,6 +313,16 @@ public class ProductDetailService {
             workbook.close();
             inputStream.close();
         }
+    }
+
+    public List<Product> getAllbyFilter(
+            Integer IdColor,Integer IdSize,Integer IdMaterial,
+            Integer IdCategory, Integer IdBrand , Integer IdHandType,
+            Integer IdNeckType, Integer IdDesign,
+            Double min ,Double max ,
+            Integer soLuong,Integer soLuong1
+    ){
+        return productRepository.getAllByFilter(IdColor,IdSize,IdMaterial,IdCategory,IdBrand, IdHandType,IdNeckType,IdDesign,min,max,soLuong,soLuong1);
     }
 
 }
