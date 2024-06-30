@@ -1,8 +1,7 @@
 package com.spring.beefit.repository;
 
 import com.spring.beefit.entity.Bill;
-import com.spring.beefit.viewmodel.response.BillAllResponse;
-import com.spring.beefit.viewmodel.response.BillResponse;
+import com.spring.beefit.viewmodel.response.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -44,7 +43,17 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "where b.Status = 0 or b.Status = 1 or b.Status = 2 or b.Status = 3 or b.Status = 4 or b.Status = 5  order by b.PurchaseDate desc", nativeQuery = true)
     List<BillResponse> getAll();
 
-
+    @Query(value = "Select COUNT(b.Id) as 'SoLuong', SUM(b.TotalPrice - b.TotalPriceLast) as 'DoanhThu' from Bill b\n" +
+            "where b.Status = 3 and CONVERT(DATE, b.PurchaseDate) = CONVERT(DATE, GETDATE())", nativeQuery = true)
+    TKNgay getThongKeNgay();
+    @Query(value = "SELECT COUNT(b.Id) as 'SoLuong', SUM(b.TotalPrice - b.TotalPriceLast) as 'DoanhThu'\n" +
+            "FROM Bill b\n" +
+            "WHERE b.Status = 3 AND MONTH(b.PurchaseDate) = MONTH(GETDATE()) AND YEAR(b.PurchaseDate) = YEAR(GETDATE())", nativeQuery = true)
+    TKThang getThongKeThang();
+    @Query(value = "Select SUM(bi.Quantity) as 'SoLuong' from BillDetail bi\n" +
+            "join Bill b on b.Id = bi.IdOrder\n" +
+            "WHERE b.Status = 3 AND MONTH(b.PurchaseDate) = MONTH(GETDATE()) AND YEAR(b.PurchaseDate) = YEAR(GETDATE())",nativeQuery = true)
+    TKSLThang getThongKeSoLuongThang();
 
 
 }

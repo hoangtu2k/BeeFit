@@ -2,6 +2,7 @@ package com.spring.beefit.repository;
 
 import com.spring.beefit.entity.BillDetail;
 import com.spring.beefit.viewmodel.response.BillDaBanResponse;
+import com.spring.beefit.viewmodel.response.TKSanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,5 +24,16 @@ public interface BillDetailRepository extends JpaRepository<BillDetail, Integer>
             "where bd.IdProduct = :id and b.Status = 3\n" +
             "group by bd.IdColor,bd.IdSize ", nativeQuery = true)
     List<BillDaBanResponse> getAllByIdProduct(@Param("id") Integer id);
+
+    @Query(value = "Select pm.Url  ,pro.Code, pro.Name , SUM(bi.Quantity) as 'SoLuong', SUM(bi.Quantity * bi.UnitPrice) as 'DoanhThu' " +
+            "from BillDetail bi\n" +
+            "join Bill b on b.Id = bi.IdOrder\n" +
+            "join Product pro on pro.Id = bi.IdProduct\n" +
+            "join ProductImage pm on pm.IdProduct = pro.Id\n" +
+            "WHERE b.Status = 3 and pm.MainImage = 1\n" +
+            "AND MONTH(b.PurchaseDate) = MONTH(GETDATE()) AND YEAR(b.PurchaseDate) = YEAR(GETDATE())\n" +
+            "Group by pm.Url  ,pro.Code, pro.Name\n" +
+            "order by SUM(bi.Quantity) desc", nativeQuery = true)
+    List<TKSanPham> getTKSanPham();
 
 }

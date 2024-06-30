@@ -7,8 +7,7 @@ import com.spring.beefit.entity.Customer;
 import com.spring.beefit.entity.Employee;
 import com.spring.beefit.repository.BillRepository;
 import com.spring.beefit.viewmodel.request.*;
-import com.spring.beefit.viewmodel.response.BillAllResponse;
-import com.spring.beefit.viewmodel.response.BillResponse;
+import com.spring.beefit.viewmodel.response.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -155,6 +154,15 @@ public class BillService {
         return repository.getAll();
     }
 
+    public TKNgay getTKNgay(){
+        return repository.getThongKeNgay();
+    }
+    public TKThang getTKThang(){
+        return repository.getThongKeThang();
+    }
+    public TKSLThang getTKSLThang(){
+        return repository.getThongKeSoLuongThang();
+    }
 
 
 }

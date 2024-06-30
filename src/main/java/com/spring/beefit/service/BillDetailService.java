@@ -6,6 +6,7 @@ import com.spring.beefit.entity.Product;
 import com.spring.beefit.repository.BillDetailRepository;
 import com.spring.beefit.viewmodel.request.BillDetailRequest;
 import com.spring.beefit.viewmodel.response.BillDaBanResponse;
+import com.spring.beefit.viewmodel.response.TKSanPham;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +59,8 @@ public class BillDetailService {
         return repository.getAllByIdProduct(id);
     }
 
+    public List<TKSanPham> getTKSanPham(){
+        return repository.getTKSanPham();
+    }
 
 }
