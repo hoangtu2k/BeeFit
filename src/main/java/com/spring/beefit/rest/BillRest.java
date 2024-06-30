@@ -155,4 +155,24 @@ public class BillRest {
         return ResponseEntity.ok(billDetailService.getAllByIdProduct(id));
     }
 
+    @GetMapping("/gettkngay")
+    public ResponseEntity<?> gettkngay(){
+        return ResponseEntity.ok(service.getTKNgay());
+    }
+
+    @GetMapping("/gettkthang")
+    public ResponseEntity<?> gettkthang(){
+        return ResponseEntity.ok(service.getTKThang());
+    }
+    @GetMapping("/gettkslthang")
+    public ResponseEntity<?> gettkslthang(){
+        return ResponseEntity.ok(service.getTKSLThang());
+    }
+    @GetMapping("/gettksanpham")
+    public ResponseEntity<?> gettksanpham(){
+        return ResponseEntity.ok(billDetailService.getTKSanPham());
+    }
+
+
+
 }

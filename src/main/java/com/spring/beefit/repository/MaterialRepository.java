@@ -14,6 +14,9 @@ public interface MaterialRepository extends JpaRepository<Material, Integer> {
     @Query(value = "Select e from Material e where e.status = 0 order by e.createDate desc")
     List<Material> getAll();
 
+    @Query("Select m from Material m where m.id = :id")
+    Material getById(@Param("id") Integer id);
+
     @Query(value = "Select cl.id from Material cl\n" +
             "join ProductdetailMaterial p on p.material.id = cl.id \n" +
             "join Product pd on pd.id = p.product.id \n" +

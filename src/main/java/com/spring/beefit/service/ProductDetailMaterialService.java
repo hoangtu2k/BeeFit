@@ -1,14 +1,14 @@
 package com.spring.beefit.service;
 
-import com.spring.beefit.entity.Material;
-import com.spring.beefit.entity.Product;
-import com.spring.beefit.entity.ProductdetailMaterial;
+import com.spring.beefit.entity.*;
 import com.spring.beefit.repository.MaterialRepository;
 import com.spring.beefit.repository.ProductDetailMaterialRepository;
+import com.spring.beefit.viewmodel.request.AttributesRequest;
 import com.spring.beefit.viewmodel.request.ProductReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +22,19 @@ public class ProductDetailMaterialService {
 
     public List<Material> getAllMaterials() {
         return materialRepository.getAll();
+    }
+    public Material addMaterial(AttributesRequest request){
+        Material material = new Material();
+        material.setName(request.getName());
+        material.setCreateDate(new Date());
+        material.setStatus(0);
+        return materialRepository.save(material);
+    }
+    public Material updateMaterial(Integer Id, AttributesRequest request){
+        Material material = materialRepository.getById(Id);
+        material.setName(request.getName());
+        material.setUpdateDate(new Date());
+        return materialRepository.save(material);
     }
 
     public List<Integer> getMaterialByProduct(Integer Id){

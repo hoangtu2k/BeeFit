@@ -54,4 +54,5 @@ public class Address implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "address")
     private Set<Bill> bills = new HashSet<Bill>();
+
 }
