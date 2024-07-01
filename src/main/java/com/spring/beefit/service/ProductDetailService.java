@@ -163,12 +163,7 @@ public class ProductDetailService {
             product.setBrand(null);
         }
         product.setCategory(Category.builder().id(request.getIdCategory()).build());
-        // Xử lý trường idDesign có thể là null
-        if (request.getIdDesign() != null) {
-            product.setDesign(Design.builder().id(request.getIdDesign()).build());
-        } else {
-            product.setDesign(null);
-        }
+        product.setDesign(Design.builder().id(request.getIdDesign()).build());
         product.setHandType(HandType.builder().id(request.getIdHandType()).build());
         product.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
         product.setCreateDate(new Date());
@@ -191,12 +186,7 @@ public class ProductDetailService {
             product.setBrand(null);
         }
         product.setCategory(Category.builder().id(request.getIdCategory()).build());
-        // Xử lý trường idDesign có thể là null
-        if (request.getIdDesign() != null) {
-            product.setDesign(Design.builder().id(request.getIdDesign()).build());
-        } else {
-            product.setDesign(null);
-        }
+        product.setDesign(Design.builder().id(request.getIdDesign()).build());
         product.setHandType(HandType.builder().id(request.getIdHandType()).build());
         product.setNeckType(NeckType.builder().id(request.getIdNeckType()).build());
         product.setUpdateDate(new Date());

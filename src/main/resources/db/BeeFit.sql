@@ -345,15 +345,9 @@ VALUES ('Cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 INSERT INTO Color(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
 VALUES (N'Den',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   (N'Trắng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Đỏ',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Xám',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),	   
+	   (N'Đỏ',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),   
 	   (N'Hồng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Vàng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Tím',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Nâu',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Xanh dương',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Xanh lá',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Cam',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+	   (N'Vàng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 
 -- Thêm dữ liệu vào bảng "Size"
 INSERT INTO Size(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
