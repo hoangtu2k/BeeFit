@@ -108,6 +108,10 @@ public class ProductRest {
         return ResponseEntity.ok(service.totalSold(id));
     }
 
+    @GetMapping("/getAllBanChay")
+    public ResponseEntity<?> getAllBanChay(){
+        return ResponseEntity.ok(service.getAllBanChay());
+    }
 
     @GetMapping("/filter")
     public ResponseEntity<?> getAllByFilter(

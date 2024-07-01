@@ -33,9 +33,14 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     Double totalSale(@Param("id") Integer id);
 
 
-
-
-
+    @Query(value = "SELECT e.Id,e.Code,e.Name, e.Price, e.Discount, e.Description, e.CreateDate, e.UpdateDate, e.CreateBy, e.UpdateBy, e.Status, e.IdBrand, e.IdHandType, e.IdNeckType, e.IdCategory, e.IdDesign, e.Weight, e.DiscountDate\n" +
+            "            FROM Product e\n" +
+            "           JOIN BillDetail bd ON bd.IdProduct = e.Id\n" +
+            "            JOIN Bill b ON b.Id = bd.IdOrder\n" +
+            "            WHERE e.Status = 0 AND b.Status = 3 AND b.PaymentDate >= DATEADD(DAY, -30, GETDATE()) \n" +
+            "            GROUP BY e.Id,e.Code,e.Name, e.Price, e.Discount, e.Description, e.CreateDate, e.UpdateDate, e.CreateBy, e.UpdateBy, e.Status, e.IdBrand, e.IdHandType, e.IdNeckType, e.IdCategory, e.IdDesign, e.Weight, e.DiscountDate\n" +
+            "            ORDER BY SUM(bd.Quantity) DESC",nativeQuery = true)
+    public List<Product> getAllBanChay();
 
 
 
