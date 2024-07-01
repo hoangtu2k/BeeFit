@@ -315,6 +315,10 @@ public class ProductDetailService {
         }
     }
 
+    public List<Product> getAllBanChay(){
+        return productRepository.getAllBanChay();
+    }
+
     public List<Product> getAllbyFilter(
             Integer IdColor,Integer IdSize,Integer IdMaterial,
             Integer IdCategory, Integer IdBrand , Integer IdHandType,
