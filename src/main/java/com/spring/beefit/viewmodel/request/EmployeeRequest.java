@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EmployeeRequest {
-    @NotBlank(message = "Không được bỏ trống Code")
     private String Code;
     @NotBlank(message = "Không được bỏ trống Tên")
     private String Fullname;
@@ -18,10 +17,12 @@ public class EmployeeRequest {
     private String Image;
     private Boolean Gender;
     @NotBlank(message = "Không được bỏ trống Phone")
-    private String phone;
+    private String Phone;
     @NotBlank(message = "Không được bỏ trống Email")
-    private String email;
-    @NotBlank(message = "Không được bỏ trống Role")
-    private Integer idRole;
-    private String createBy;
+    private String Email;
+    private Integer IdRole;
+    private String CreateBy;
+    private String UpdateBy;
+
+
 }
