@@ -19,14 +19,7 @@ import java.util.List;
 public class EmployeeService {
 
     @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
     private EmployeeRepository employeeRepository;
-
-    public List<Role> getAllRoles() {
-        return roleRepository.getAll();
-    }
 
     public Employee getByUsername(String username) {
         return employeeRepository.findByUsername(username);

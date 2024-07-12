@@ -1,20 +1,59 @@
 package com.spring.beefit.rest;
 
-import com.spring.beefit.service.EmployeeService;
+import com.spring.beefit.service.RoleService;
+import com.spring.beefit.viewmodel.request.RoleRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/role")
 public class RoleRest {
+
     @Autowired
-    private EmployeeService employeeService;
+    private RoleService service;
+
     @GetMapping()
-    public ResponseEntity<?> getAll() {
-        return ResponseEntity.ok(employeeService.getAllRoles());
+    public ResponseEntity<?> getAll(){
+        return ResponseEntity.ok(service.getAllRoles());
     }
+
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> getAllByName(@PathVariable("name") String name){
+        return ResponseEntity.ok(service.getAllbyName(name));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(service.getById(id));
+    }
+
+    @PostMapping()
+    public ResponseEntity<?> add(@Valid @RequestBody RoleRequest request , BindingResult result){
+        if(result.hasErrors()){
+            List<ObjectError> list = result.getAllErrors();
+            return  ResponseEntity.badRequest().body(list);
+        }
+        return ResponseEntity.ok(service.add(request));
+    }
+
+    @PutMapping("/udpate/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Integer Id, @Valid @RequestBody RoleRequest request , BindingResult result){
+        if(result.hasErrors()){
+            List<ObjectError> list = result.getAllErrors();
+            return ResponseEntity.badRequest().body(list);
+        }
+        return ResponseEntity.ok(service.update(Id,request));
+    }
+
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id")Integer id){
+        return ResponseEntity.ok(service.delete(id));
+    }
+
 }
