@@ -182,12 +182,17 @@ Create table Voucher(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30),
 										 Name NVARCHAR(100),
-										 TypeVoucher BIT,
+                                         DiscountType BIT,
 										 Discount INT,
 										 Cash MONEY,
 										 StartDate DATETIME,
 										 EndDate DATETIME,			
 										 Quantity INT,
+                                         CreateDate DATETIME,
+                                         UpdateDate DATETIME,
+                                         CreateBy VARCHAR(30),
+                                         UpdateBy VARCHAR(30),
+                                         Status INT,
 )
 Create table Address(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
