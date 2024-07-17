@@ -57,4 +57,9 @@ public class VoucherRest {
         return ResponseEntity.ok(service.delete(Id));
     }
 
+    @PutMapping("/updateQuantityBill/{id}")
+    public ResponseEntity<?> updateQuantityBill(@PathVariable("id") Integer Id){
+        return ResponseEntity.ok(service.updateQuantityBill(Id));
+    }
+
 }

@@ -66,4 +66,17 @@ public class VoucherService {
         return repository.save(voucher);
     }
 
+    public Voucher updateQuantityBill(Integer Id) {
+        Voucher voucher = repository.getById(Id);
+        if (voucher != null) {
+            voucher.setQuantity(voucher.getQuantity() - 1);
+            return repository.save(voucher);
+        } else if (voucher.getQuantity() <= 0){
+            voucher.setQuantity(0);
+            return repository.save(voucher);
+        } else {
+            return voucher; // Trả về voucher = null
+        }
+    }
+
 }

@@ -1,17 +1,12 @@
 package com.spring.beefit.viewmodel.request;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Getter
@@ -28,9 +23,9 @@ public class VoucherRequest {
     private Integer Discount;
     private BigDecimal Cash;
     @NotNull(message = "Không được bỏ trống ngày bắt đầu ")
-    private Timestamp StartDate;
+    private Date StartDate;
     @NotNull(message = "Không được bỏ trống ngày kết thúc ")
-    private Timestamp EndDate;
+    private Date EndDate;
     @NotNull(message = "Không được bỏ trống số lượng ")
     private Integer Quantity;
     private Date CreateDate;

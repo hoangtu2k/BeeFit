@@ -7,7 +7,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,9 +20,9 @@ import java.util.Set;
 @Entity
 public class Voucher implements Serializable{
 
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Id")
+    @Column(name = "Id", nullable = false)
     private Integer id;
 
     @Column(name = "Code")
@@ -42,10 +41,14 @@ public class Voucher implements Serializable{
     private BigDecimal cash;
 
     @Column(name = "StartDate")
-    private Timestamp startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;
 
     @Column(name = "EndDate")
-    private Timestamp endDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;
 
     @Column(name = "Quantity")
     private Integer quantity;
