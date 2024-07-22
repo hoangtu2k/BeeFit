@@ -42,7 +42,7 @@ public class Employee implements Serializable {
     private String phone;
 
     @Column(name = "Email")
-    private String email;
+    private String Email;
 
     @Column(name = "CreateDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

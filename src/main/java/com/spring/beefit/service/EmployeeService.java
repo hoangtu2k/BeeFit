@@ -21,6 +21,9 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUV";
+    private static final SecureRandom random = new SecureRandom();
+
     public Employee getByUsername(String username) {
         return employeeRepository.findByUsername(username);
     }
@@ -68,14 +71,6 @@ public class EmployeeService {
         employee.setRole(Role.builder().id(request.getIdRole()).build());
         return employeeRepository.save(employee);
     }
-    // đổi mật khẩu
-    public Employee change(Integer idEmployee, ChangeForm form) {
-        Employee employee = employeeRepository.getById(idEmployee);
-        employee.setPassword(form.getRePasswordMoi());
-        employee.setUpdateDate(new Date());
-        return employeeRepository.save(employee);
-    }
-
     //cập nhật profile
     public Employee updateprofile(Integer idEmployee, CapNhatProfile form) {
         Employee employee = employeeRepository.getById(idEmployee);
@@ -98,6 +93,7 @@ public class EmployeeService {
         return sb.toString();
     }
 
+    // lấy lại mật khẩu
     public Employee forget(ForgetForm form) {
         Employee employee = employeeRepository.getByUsername(form.getUsername());
         employee.setPassword(generateRandomString(8));
@@ -105,8 +101,13 @@ public class EmployeeService {
         return employeeRepository.save(employee);
     }
 
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUV";
-    private static final SecureRandom random = new SecureRandom();
+    // đổi mật khẩu
+    public Employee change(Integer idEmployee, ChangeForm form) {
+        Employee employee = employeeRepository.getById(idEmployee);
+        employee.setPassword(form.getRePasswordMoi());
+        employee.setUpdateDate(new Date());
+        return employeeRepository.save(employee);
+    }
 
     public List<Employee> getAll() {
         return employeeRepository.getAll();
@@ -133,4 +134,3 @@ public class EmployeeService {
     }
 
 }
-

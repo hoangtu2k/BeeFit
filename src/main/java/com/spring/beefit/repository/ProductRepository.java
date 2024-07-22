@@ -2,9 +2,11 @@ package com.spring.beefit.repository;
 
 import com.spring.beefit.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -76,5 +78,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             @Param("idnecktype") Integer IdNeckType,@Param("iddesign") Integer IdDesign,
             @Param("min") Double min ,@Param("max") Double max,
             @Param("soLuong") Integer soLuong,@Param("soLuong1") Integer soLuong1);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "Update Product set Discount = 0 , DiscountDate = null WHERE DiscountDate <= GETDATE() + 1",nativeQuery = true)
+    void updateDiscount();
 
 }
