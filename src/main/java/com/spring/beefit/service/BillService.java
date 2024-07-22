@@ -166,5 +166,8 @@ public class BillService {
         return repository.getThongKeSoLuongThang();
     }
 
+    public TKTTLKhachHang getTichLuyKhachHangByIdCustomer(Integer IdCustomer){
+        return repository.getTichLuyKhachHangByIdCustomer(IdCustomer);
+    }
 
 }

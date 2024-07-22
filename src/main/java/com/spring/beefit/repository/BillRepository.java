@@ -55,5 +55,10 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "WHERE b.Status = 3 AND MONTH(b.PurchaseDate) = MONTH(GETDATE()) AND YEAR(b.PurchaseDate) = YEAR(GETDATE())",nativeQuery = true)
     TKSLThang getThongKeSoLuongThang();
 
+    @Query(value = "SELECT COUNT(b.Id) as 'TongHoaDon', SUM(b.TotalPrice + b.ShipPrice - b.TotalPriceLast) as 'TienTichLuy'\n" +
+            "                FROM Bill b \n" +
+            "                JOIN Customer c ON b.IdCustomer = c.Id\n" +
+            "                WHERE b.Status = 3 and b.IdCustomer = :IdCustomer\n",nativeQuery = true)
+    TKTTLKhachHang getTichLuyKhachHangByIdCustomer(@Param("IdCustomer") Integer idCustomer);
 
 }

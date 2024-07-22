@@ -173,6 +173,9 @@ public class BillRest {
         return ResponseEntity.ok(billDetailService.getTKSanPham());
     }
 
-
+    @GetMapping("/getTichLuyKhachHangByIdCustomer/{IdCustomer}")
+    public ResponseEntity<?> getTichLuyKhachHangByIdCustomer(@PathVariable("IdCustomer") Integer IdCustomer){
+        return ResponseEntity.ok(service.getTichLuyKhachHangByIdCustomer(IdCustomer));
+    }
 
 }

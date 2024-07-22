@@ -42,7 +42,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "            WHERE e.Status = 0 AND b.Status = 3 AND b.PaymentDate >= DATEADD(DAY, -30, GETDATE()) \n" +
             "            GROUP BY e.Id,e.Code,e.Name, e.Price, e.Discount, e.Description, e.CreateDate, e.UpdateDate, e.CreateBy, e.UpdateBy, e.Status, e.IdBrand, e.IdHandType, e.IdNeckType, e.IdCategory, e.IdDesign, e.Weight, e.DiscountDate\n" +
             "            ORDER BY SUM(bd.Quantity) DESC",nativeQuery = true)
-    public List<Product> getAllBanChay();
+    List<Product> getAllBanChay();
 
 
 
