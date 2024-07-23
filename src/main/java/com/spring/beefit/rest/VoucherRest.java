@@ -23,6 +23,11 @@ public class VoucherRest {
         return ResponseEntity.ok(service.getAll());
     }
 
+    @GetMapping("/getAllToBill")
+    public ResponseEntity<?> getAllToBill(){
+        return ResponseEntity.ok(service.getAllToBill());
+    }
+
     @GetMapping("/search/{name}")
     public ResponseEntity<?> getAllByVoucher(@PathVariable("name") String name){
         return ResponseEntity.ok(service.getAllbyName(name));

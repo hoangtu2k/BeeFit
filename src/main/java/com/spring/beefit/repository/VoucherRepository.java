@@ -15,6 +15,10 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
 
     @Query(value = "Select e from Voucher e where e.status = 0 or e.status = 1 order by e.createDate desc")
     List<Voucher> getAll();
+
+    @Query(value = "Select e from Voucher e where e.status = 0 order by e.createDate desc")
+    List<Voucher> getAllToBill();
+
     @Query(value = "Select e from Voucher e where e.status = 0 or e.status = 1 and e.name like :name")
     List<Voucher> searchByName(@Param("name") String name);
     @Query(value = "select e from Voucher e where e.id = :id")

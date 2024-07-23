@@ -19,6 +19,10 @@ public class VoucherService {
         return repository.getAll();
     }
 
+    public List<Voucher> getAllToBill(){
+        return repository.getAllToBill();
+    }
+
     public List<Voucher> getAllbyName(String name){
         return repository.searchByName('%'+name+'%');
     }
