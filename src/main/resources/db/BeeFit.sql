@@ -182,12 +182,17 @@ Create table Voucher(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
 										 Code VARCHAR(30),
 										 Name NVARCHAR(100),
-										 TypeVoucher BIT,
+                                         DiscountType BIT,
 										 Discount INT,
 										 Cash MONEY,
 										 StartDate DATETIME,
-										 EndDate DATETIME,			
+										 EndDate DATETIME,
 										 Quantity INT,
+                                         CreateDate DATETIME,
+                                         UpdateDate DATETIME,
+                                         CreateBy VARCHAR(30),
+                                         UpdateBy VARCHAR(30),
+                                         Status INT,
 )
 Create table Address(
 										 Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -345,15 +350,9 @@ VALUES ('Cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 INSERT INTO Color(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
 VALUES (N'Den',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   (N'Trắng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Đỏ',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Xám',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),	   
+	   (N'Đỏ',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),   
 	   (N'Hồng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Vàng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Tím',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Nâu',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Xanh dương',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Xanh lá',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   (N'Cam',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+	   (N'Vàng',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 
 -- Thêm dữ liệu vào bảng "Size"
 INSERT INTO Size(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)

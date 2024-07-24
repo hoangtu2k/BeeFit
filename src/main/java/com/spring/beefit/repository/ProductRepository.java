@@ -2,9 +2,11 @@ package com.spring.beefit.repository;
 
 import com.spring.beefit.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "join Bill  c on c.id = b.bill.id \n" +
             "where b.product.id = :id and c.status = 3")
     Integer quantitySold(@Param("id") Integer id);
+
     @Query(value = "Select SUM (b.quantity * b.unitPrice) from BillDetail b \n" +
             "join Bill  c on c.id = b.bill.id \n" +
             "where b.product.id = :id and c.status = 3")
@@ -40,7 +43,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "            WHERE e.Status = 0 AND b.Status = 3 AND b.PaymentDate >= DATEADD(DAY, -30, GETDATE()) \n" +
             "            GROUP BY e.Id,e.Code,e.Name, e.Price, e.Discount, e.Description, e.CreateDate, e.UpdateDate, e.CreateBy, e.UpdateBy, e.Status, e.IdBrand, e.IdHandType, e.IdNeckType, e.IdCategory, e.IdDesign, e.Weight, e.DiscountDate\n" +
             "            ORDER BY SUM(bd.Quantity) DESC",nativeQuery = true)
-    public List<Product> getAllBanChay();
+    List<Product> getAllBanChay();
 
 
 
@@ -76,5 +79,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             @Param("idnecktype") Integer IdNeckType,@Param("iddesign") Integer IdDesign,
             @Param("min") Double min ,@Param("max") Double max,
             @Param("soLuong") Integer soLuong,@Param("soLuong1") Integer soLuong1);
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "Update Product set Discount = 0 , DiscountDate = null WHERE DiscountDate <= GETDATE() + 1",nativeQuery = true)
+    void updateDiscount();
 
 }

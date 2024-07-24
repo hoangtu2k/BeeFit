@@ -88,10 +88,13 @@ public class Bill implements Serializable {
     @JoinColumn(name = "IdEmployee")
     private Employee employee;
 
+    @ManyToOne
+    @JoinColumn(name = "IdVoucher")
+    private Voucher voucher;
+
     @JsonIgnore
     @OneToMany(mappedBy = "bill")
     private Set<BillHistory> billHistories = new HashSet<BillHistory>();
-
 
 
 }

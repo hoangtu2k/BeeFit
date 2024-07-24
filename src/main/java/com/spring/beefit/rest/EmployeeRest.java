@@ -3,6 +3,8 @@ package com.spring.beefit.rest;
 import com.spring.beefit.service.EmployeeService;
 import com.spring.beefit.viewmodel.request.CapNhatProfile;
 import com.spring.beefit.viewmodel.request.ChangeForm;
+import com.spring.beefit.viewmodel.request.EmployeeRequest;
+import com.spring.beefit.viewmodel.request.ForgetForm;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,35 @@ public class EmployeeRest {
 
     @Autowired
     private EmployeeService employeeService;
+    @GetMapping()
+    public ResponseEntity<?> getAll() {
+        return ResponseEntity.ok(employeeService.getAll());
+    }
 
+    @GetMapping("/getall1")
+    public ResponseEntity<?> getAll1() {
+        return ResponseEntity.ok(employeeService.getAll1());
+    }
+    @PostMapping()
+    public ResponseEntity<?>add(@Valid @RequestBody EmployeeRequest request, BindingResult result){
+        if(result.hasErrors()){
+            List<ObjectError>list= result.getAllErrors();
+            return ResponseEntity.badRequest().body(list);
+        }
+        return  ResponseEntity.ok(employeeService.add(request));
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?>add(@PathVariable("id") Integer id,@Valid @RequestBody EmployeeRequest request, BindingResult result){
+        if(result.hasErrors()){
+            List<ObjectError>list= result.getAllErrors();
+            return ResponseEntity.badRequest().body(list);
+        }
+        return  ResponseEntity.ok(employeeService.update(request));
+    }
+    @GetMapping("/search/{name}")
+    public ResponseEntity<?> getAllByEmployee(@PathVariable("name") String name) {
+        return ResponseEntity.ok(employeeService.getAllbyName(name));
+    }
     @GetMapping("/getByUsername/{username}")
     public ResponseEntity<?> getByUsername(@PathVariable String username) {
         return ResponseEntity.ok(employeeService.getByUsername(username));
@@ -52,5 +82,24 @@ public class EmployeeRest {
         return ResponseEntity.ok(employeeService.change(id,form));
     }
 
+    @PutMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Integer Id) {
+        return ResponseEntity.ok(employeeService.delete(Id));
+    }
+
+    @PutMapping("/khoiphuc/{id}")
+    public ResponseEntity<?> khoiphuc(@PathVariable("id") Integer Id) {
+        return ResponseEntity.ok(employeeService.delete1(Id));
+    }
+
+
+    @PutMapping("/forget")
+    public ResponseEntity<?> forget(@Valid @RequestBody ForgetForm form, BindingResult result) {
+        if (result.hasErrors()) {
+            List<ObjectError> list = result.getAllErrors();
+            return ResponseEntity.badRequest().body(list);
+        }
+        return ResponseEntity.ok(employeeService.forget(form));
+    }
 
 }

@@ -12,4 +12,5 @@ public class UpdateThanhToanTaiQuay {
     private Integer PayStatus;
     private Date PaymentDate;
     private Date DeliveryDate;
+    private Integer IdVoucher;
 }

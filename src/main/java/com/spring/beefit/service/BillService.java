@@ -1,10 +1,7 @@
 package com.spring.beefit.service;
 
 
-import com.spring.beefit.entity.Address;
-import com.spring.beefit.entity.Bill;
-import com.spring.beefit.entity.Customer;
-import com.spring.beefit.entity.Employee;
+import com.spring.beefit.entity.*;
 import com.spring.beefit.repository.BillRepository;
 import com.spring.beefit.viewmodel.request.*;
 import com.spring.beefit.viewmodel.response.*;
@@ -61,10 +58,15 @@ public class BillService {
         bill.setTotalPriceLast(request.getTotalPriceLast());
         bill.setPayStatus(request.getPayStatus());
         bill.setPayType(request.getPayType());
+        if (request.getIdVoucher() != null) {
+            bill.setVoucher(Voucher.builder().id(request.getIdVoucher()).build());
+        } else {
+            bill.setVoucher(null);
+        }
         bill.setIdCoupon(request.getIdCoupon());
-       if(request.getIdAddress() != 0){
+        if(request.getIdAddress() != 0){
            bill.setAddress(Address.builder().Id(request.getIdAddress()).build());
-       }
+        }
         bill.setStatus(request.getStatus());
         bill.setPaymentDate(request.getPaymentDate());
         bill.setDelyveryDate(request.getDelyveryDate());
@@ -164,5 +166,8 @@ public class BillService {
         return repository.getThongKeSoLuongThang();
     }
 
+    public TKTTLKhachHang getTichLuyKhachHangByIdCustomer(Integer IdCustomer){
+        return repository.getTichLuyKhachHangByIdCustomer(IdCustomer);
+    }
 
 }
