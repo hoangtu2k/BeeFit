@@ -2,12 +2,10 @@ package com.spring.beefit.service;
 
 import com.spring.beefit.entity.Employee;
 import com.spring.beefit.entity.Role;
+import com.spring.beefit.entity.Voucher;
 import com.spring.beefit.repository.EmployeeRepository;
 import com.spring.beefit.repository.RoleRepository;
-import com.spring.beefit.viewmodel.request.CapNhatProfile;
-import com.spring.beefit.viewmodel.request.ChangeForm;
-import com.spring.beefit.viewmodel.request.EmployeeRequest;
-import com.spring.beefit.viewmodel.request.ForgetForm;
+import com.spring.beefit.viewmodel.request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,9 +55,8 @@ public class EmployeeService {
         employee.setRole(Role.builder().id(request.getIdRole()).build());
         return employeeRepository.save(employee);
     }
-    public Employee update(EmployeeRequest request) {
-        Employee employee = new Employee();
-        employee.setCode(request.getCode());
+    public Employee update(Integer id,EmployeeRequest request) {
+        Employee employee = employeeRepository.getById(id);
         employee.setFullname(request.getFullname());
         employee.setUsername(request.getUsername());
         employee.setPassword(request.getPassword());

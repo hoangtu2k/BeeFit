@@ -44,7 +44,7 @@ public class EmployeeRest {
             List<ObjectError>list= result.getAllErrors();
             return ResponseEntity.badRequest().body(list);
         }
-        return  ResponseEntity.ok(employeeService.update(request));
+        return  ResponseEntity.ok(employeeService.update(id,request));
     }
     @GetMapping("/search/{name}")
     public ResponseEntity<?> getAllByEmployee(@PathVariable("name") String name) {
