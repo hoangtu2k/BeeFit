@@ -148,7 +148,7 @@ public class ProductDetailService {
     }
     public Product addProduct(ProductReq request) {
         Product product = new Product();
-        product.setCode(genCode());
+        product.setCode(getNextMa());
         product.setName(request.getName());
         product.setPrice(request.getPrice());
         product.setWeight(request.getWeight());
@@ -205,12 +205,18 @@ public class ProductDetailService {
     public Product getByCode(String code){
         return productRepository.getByCode(code);
     }
-    public String genCode() {
-        // Tạo đối tượng Random
-        long timestamp = Instant.now().getEpochSecond();
-        String code = "SP" + timestamp;
-        return code;
+
+    private String getNextMa() {
+        String biggestMa = productRepository.getBiggestMa();
+        if (biggestMa == null || biggestMa.isEmpty()) {
+            return "SP01";
+        } else {
+            int currentMa = Integer.parseInt(biggestMa.substring(2));
+            String newMa = "SP" + String.format("%02d", ++currentMa);
+            return newMa;
+        }
     }
+
     public ProductImage addImage(ProductReq image){
         ProductImage productImage = new ProductImage();
         productImage.setUrl(image.getUrl());
@@ -239,7 +245,7 @@ public class ProductDetailService {
             for (Row row: sheet) {
                 //Đọc dữ liệu từng hàng cho vào csdl
                 if (row.getRowNum() > 0){
-                    String code = genCode();
+                    String code = getNextMa();
                     String name = row.getCell(0).getStringCellValue();
                     String url = row.getCell(1).getStringCellValue();
                     Double price = row.getCell(2).getNumericCellValue();

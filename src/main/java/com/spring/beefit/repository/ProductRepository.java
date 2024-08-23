@@ -13,6 +13,9 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    @Query(value = "SELECT Code FROM Product p ORDER BY LEN(p.Code) DESC, p.Code DESC OFFSET 0 ROW FETCH NEXT 1 ROW ONLY", nativeQuery = true)
+    String getBiggestMa();
+
     @Query("Select p from Product p where p.id = :id")
     Product getById(@Param("id") Integer id);
 
