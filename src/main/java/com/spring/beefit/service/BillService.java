@@ -170,4 +170,13 @@ public class BillService {
         return repository.getTichLuyKhachHangByIdCustomer(IdCustomer);
     }
 
+    public List<TKSoLuongHD> getTKSoLuongHD(String tungay, String denngay){
+        return repository.getTKSoLuongHD(tungay,denngay);
+    }
+    public List<TKSoLuongSanPham> getTKSoLuongSanPham(String tungay, String denngay){
+        return repository.getTKSoLuongSanPham(tungay,denngay);
+    }
+    public List<TKHoaDonStatus> getTKSoLuongHDStatus(String tungay, String denngay){
+        return repository.getTKSoLuongHDStatus(tungay,denngay);
+    }
 }

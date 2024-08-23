@@ -178,4 +178,22 @@ public class BillRest {
         return ResponseEntity.ok(service.getTichLuyKhachHangByIdCustomer(IdCustomer));
     }
 
+    @GetMapping("/gettksoluonghd")
+    public ResponseEntity<?> gettksoluonghd(@RequestParam("tungay")String tungay,
+                                            @RequestParam("denngay") String denngay){
+        return ResponseEntity.ok(service.getTKSoLuongHD(tungay,denngay));
+    }
+    @GetMapping("/gettksoluonghdstatus")
+    public ResponseEntity<?> gettksoluonghdstatus(@RequestParam("tungay")String tungay,
+                                                  @RequestParam("denngay") String denngay){
+        return ResponseEntity.ok(service.getTKSoLuongHDStatus(tungay,denngay));
+    }
+    @GetMapping("/gettksoluongsp")
+    public ResponseEntity<?> gettksoluongsp(@RequestParam("tungay")String tungay,
+                                            @RequestParam("denngay") String denngay){
+        return ResponseEntity.ok(service.getTKSoLuongSanPham(tungay,denngay));
+    }
+
+
+
 }

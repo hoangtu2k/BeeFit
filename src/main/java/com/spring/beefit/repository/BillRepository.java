@@ -61,4 +61,61 @@ public interface BillRepository extends JpaRepository<Bill, Integer> {
             "                WHERE b.Status = 3 and b.IdCustomer = :IdCustomer\n",nativeQuery = true)
     TKTTLKhachHang getTichLuyKhachHangByIdCustomer(@Param("IdCustomer") Integer idCustomer);
 
+
+    @Query(value = "WITH DateTable AS (\n" +
+            "    SELECT \n" +
+            "        DATEADD(DAY, number, :tungay) AS DateInInterval\n" +
+            "    FROM master.dbo.spt_values\n" +
+            "    WHERE type = 'P'\n" +
+            "        AND DATEADD(DAY, number, :tungay) <= :denngay\n" +
+            ")\n" +
+            "SELECT \n" +
+            "    CAST(DateTable.DateInInterval AS DATE) AS PurchaseDay,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 0 THEN 1 ELSE NULL END) AS NumberOfBillsStatus0,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 1 THEN 1 ELSE NULL END) AS NumberOfBillsStatus1,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 2 THEN 1 ELSE NULL END) AS NumberOfBillsStatus2,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 3 THEN 1 ELSE NULL END) AS NumberOfBillsStatus3,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 4 THEN 1 ELSE NULL END) AS NumberOfBillsStatus4\n" +
+            "FROM DateTable\n" +
+            "LEFT JOIN Bill ON CONVERT(DATE, Bill.PurchaseDate) = DateTable.DateInInterval\n" +
+            "GROUP BY CAST(DateTable.DateInInterval AS DATE)\n" +
+            "ORDER BY PurchaseDay;\n", nativeQuery = true)
+    List<TKSoLuongHD> getTKSoLuongHD(@Param("tungay") String tungay, @Param("denngay") String denngay);
+
+    @Query(value = "WITH DateTable AS (\n" +
+            "    SELECT \n" +
+            "        DATEADD(DAY, number, :tungay) AS DateInInterval\n" +
+            "    FROM master.dbo.spt_values\n" +
+            "    WHERE type = 'P'\n" +
+            "        AND DATEADD(DAY, number, :tungay) <= :denngay\n" +
+            ")\n" +
+            "\n" +
+            "SELECT \n" +
+            "    CAST(DateTable.DateInInterval AS DATE) AS PurchaseDay,\n" +
+            "    COALESCE(SUM(bi.Quantity), 0) AS SoLuong,\n" +
+            "    COALESCE(SUM(b.TotalPrice - b.TotalPriceLast), 0) AS DoanhThu\n" +
+            "FROM DateTable\n" +
+            "LEFT JOIN Bill b ON CONVERT(DATE, b.PurchaseDate) = DateTable.DateInInterval AND b.Status = 3\n" +
+            "LEFT JOIN BillDetail bi ON bi.IdOrder = b.Id\n" +
+            "GROUP BY CAST(DateTable.DateInInterval AS DATE)\n" +
+            "ORDER BY PurchaseDay",nativeQuery = true)
+    List<TKSoLuongSanPham> getTKSoLuongSanPham(@Param("tungay")String tungay, @Param("denngay") String denngay);
+    @Query(value = "WITH DateTable AS (\n" +
+            "    SELECT \n" +
+            "        DATEADD(DAY, number, :tungay) AS DateInInterval\n" +
+            "    FROM master.dbo.spt_values\n" +
+            "    WHERE type = 'P'\n" +
+            "        AND DATEADD(DAY, number, :tungay) <= :denngay\n" +
+            ")\n" +
+            "\n" +
+            "SELECT \n" +
+            "    COUNT(CASE WHEN Bill.Status = 0 THEN 1 ELSE NULL END) AS NumberOfBillsStatus0,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 1 THEN 1 ELSE NULL END) AS NumberOfBillsStatus1,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 2 THEN 1 ELSE NULL END) AS NumberOfBillsStatus2,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 3 THEN 1 ELSE NULL END) AS NumberOfBillsStatus3,\n" +
+            "    COUNT(CASE WHEN Bill.Status = 4 THEN 1 ELSE NULL END) AS NumberOfBillsStatus4\n" +
+            "FROM DateTable\n" +
+            "LEFT JOIN Bill ON CONVERT(DATE, Bill.PurchaseDate) = DateTable.DateInInterval;\n",nativeQuery = true)
+    List<TKHoaDonStatus> getTKSoLuongHDStatus(@Param("tungay")String tungay, @Param("denngay") String denngay);
+
 }
