@@ -342,9 +342,14 @@ VALUES (N'Tay ngắn',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 
 -- Thêm dữ liệu vào bảng "Material"
 INSERT INTO Material(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
-VALUES ('Cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   ('TBC',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
-	   ('Polyester',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
+VALUES ('30% Cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('70% Polyester',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('35% Cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('65% Polyester',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('2% Cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('28% Polyurethane',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('70% Polyester',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
+	   ('100% cotton',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 
 -- Thêm dữ liệu vào bảng "Color"
 INSERT INTO Color(Name, CreateDate, UpdateDate, CreateBy, UpdateBy, Status)
@@ -361,7 +366,6 @@ VALUES ('S',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('L',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 	   ('XL',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0);
 
-
 -------------------------------------- Inser into product end --------------------------------------------
 
 -- Thêm dữ liệu vào bảng "role"
@@ -371,8 +375,8 @@ VALUES ('Admin',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0),
 
 -- Thêm dữ liệu vào bảng "employee"
 INSERT INTO Employee (Code, Fullname, Username, Password, Image, Gender, Phone, Email, CreateDate, UpdateDate, CreateBy, UpdateBy, status, IdRole)
-VALUES ('NV01', 'John Doe staff', 'staff', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 2),
-	   ('NV02', 'John Doe admin', 'admin', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 1);
+VALUES ('NV01', 'Phùng Hoàng Tú', 'staff', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 2),
+	   ('NV02', 'Phùng Hoàng Tú', 'admin', '123456', 'Image URL', 1, '0123456789', 'employee@example.com',  GETDATE() , GETDATE() , 'Admin', 'Admin', 0, 1);
 
 -- Thêm dữ liệu vào bảng "customer"
 INSERT INTO Customer (Code, Fullname, Username, Password, Image, Gender, Phone, Email, CreateDate, UpdateDate, CreateBy, UpdateBy, status)
