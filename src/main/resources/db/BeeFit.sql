@@ -386,4 +386,6 @@ VALUES ('NV01', 'Customer', 'sa', '123456', 'Image URL', 1, '0123456789', 'emplo
 INSERT INTO Cart (IdCustomer) 
 VALUES (1);
 
-
+-- Thêm dữ liệu vào bảng "Address"
+INSERT INTO Address(Fullname,Phone,Address,CityName,DistrictName,WardName,CityId,DistrictId,WardId,CreateDate,UpdateDate,CreateBy,UpdateBy,Status,IdCustomer) 
+VALUES (N'Phùng Hoàng Tú', '0396489209', N'Thôn 3', N'Lào Cai', N'Huyện Si Ma Cai', N'Thị Trấn Si Ma Cai',269,2264,90816,GETDATE(),GETDATE(),'Admin', 'Admin', 0,1);
